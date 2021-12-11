@@ -14,4 +14,3 @@ class PostApi(Resource):
     
     def delete(self):
         pass
-
