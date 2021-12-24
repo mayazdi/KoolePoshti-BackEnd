@@ -23,7 +23,17 @@ class PostApi(Resource):
 
 class PostsApi(Resource):
     def get(self):
-        posts = Post.objects().to_json()
+        page = request.args.get("page")
+        limit = request.args.get("limit")
+        if page and limit:
+            page = (int) (page)
+            limit = (int) (limit)
+            start_index = (page - 1) * limit
+            end_index = page * limit
+            posts = Post.objects[start_index:end_index].to_json()
+            # If has_next, ... is needed, get it from paginate file
+        else:
+            posts = Post.objects().to_json()
         return Response(posts, mimetype="application/json", status=200)
     
     def post(self):
