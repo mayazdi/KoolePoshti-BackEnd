@@ -1,4 +1,5 @@
 from .db import db
+import datetime
 
 class User(db.Document):
     github_id = db.StringField(required=True)
@@ -17,11 +18,14 @@ class Tag(db.Document):
 class File(db.Document):
     url = db.StringField(required=True)
 
+class Like(db.Document):
+    pass
+
 
 class Post(db.Document):
-    _id = db.IntField(required=True, unique=True)
-    active = db.BooleanField(required=True)
-    created_at = db.DateTimeField(required=True)
+    # _id = db.IntField(required=True, unique=True)
+    active = db.BooleanField(required=True, default=True)
+    created_at = db.DateTimeField(required=True, default=datetime.datetime.utcnow)
     likes = db.ReferenceField(User)
     content = db.StringField()
     tags = db.ListField(db.ReferenceField(Tag))
@@ -33,7 +37,7 @@ class Post(db.Document):
 class GHPost(Post):
     forks = db.IntField(required=True)
     stars = db.IntField(required=True)
-    link = db.IntField(required=True)
+    url = db.IntField(required=True)
     meta_picture = db.StringField(required=True)
     meta_title = db.StringField(required=True)
     meta_description = db.StringField()
