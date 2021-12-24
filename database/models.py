@@ -16,7 +16,9 @@ class Tag(db.Document):
 
 
 class File(db.Document):
-    url = db.StringField(required=True)
+    # url = db.StringField(required=True)
+    data = db.FileField()
+
 
 class Like(db.Document):
     pass
