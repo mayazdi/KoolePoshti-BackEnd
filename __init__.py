@@ -11,12 +11,8 @@ app.config['MONGODB_SETTINGS'] = {
 }
 
 initialize_db(app)
-initialize_routes(api)
-
-@app.route('/')
-def index():
-    return "Hello World!"
+initialize_routes(api, config_map['routing_prefix'])
 
 
 if __name__ == "__main__":
-    app.run(debug=config_map['debug_mode'], port=config_map['port'])
+    app.run(debug=config_map['debug_mode'], port=config_map['server_port'])
