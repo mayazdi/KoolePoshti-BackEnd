@@ -1,5 +1,6 @@
 config_map = {
+    'routing_prefix': '/api/v1',
     'debug_mode': True,
-    'port': 5000,
+    'server_port': 5000,
     'mongodb_host': 'mongodb://localhost/koole-poshti'
 }
