@@ -1,17 +1,16 @@
 from flask import Response, request
 from database.models import File
 from flask_restful import Resource
-import io 
+import io
 from flask.helpers import send_file
+import datetime
 
 class FileApi(Resource):
     def post(self):
         f = request.files['file']
         _file = File()
-        _file.data.put(f, filename=f.filename)
+        _file.data.put(f, filename=str(datetime.datetime.utcnow())+"_"+f.filename)
         _file.save()
-        """ body = request.get_json()
-        _file = File(**body).save() """
         id = _file.id
         return {'id': str(id)}, 201
     
