@@ -1,5 +1,6 @@
-from .post import PostApi
+from .post import PostApi, PostsApi
 
 
-def initialize_routes(api):
-    api.add_resource(PostApi, '/post')
+def initialize_routes(api, routing_prefix):
+    api.add_resource(PostApi, routing_prefix + '/posts/<id>')
+    api.add_resource(PostsApi, routing_prefix + '/posts')
