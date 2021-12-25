@@ -1,0 +1,471 @@
+{
+	"info": {
+		"_postman_id": "4e4e4bb0-5adf-4c22-8ed1-85f2ad4e3d15",
+		"name": "KoolePoshti",
+		"description": "Bs.C. Project APIs.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Amin\",\r\n    \"password\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/register",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "auth",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Amin\",\r\n    \"password\": \"1234\"\r\n}"
+						},
+						"url": {
+							"raw": "{{Host}}/auth",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "post",
+					"item": [
+						{
+							"name": "posts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Host}}/v1/posts?page=1&limit=20",
+									"host": [
+										"{{Host}}"
+									],
+									"path": [
+										"v1",
+										"posts"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "20"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "posts",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{Host}}/v1/posts?page=1&limit=20",
+											"host": [
+												"{{Host}}"
+											],
+											"path": [
+												"v1",
+												"posts"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "1"
+												},
+												{
+													"key": "limit",
+													"value": "20"
+												}
+											]
+										}
+									},
+									"_postman_previewlanguage": "json",
+									"header": null,
+									"cookie": [],
+									"body": "{\"posts\" : \r\n    [\r\n        {\r\n            \"id\": \"post1\",\r\n            \"content\": \"#H1\\n\\r#H2\\n\\rNormalText\",\r\n            \"tags\": [\r\n                {\r\n                    \"id\": \"tag_id_1\",\r\n                    \"name\": \"name1\",\r\n                    \"color\": \"#ffffff\"\r\n                },\r\n                {\r\n                    \"id\": \"tag_id_2\",\r\n                    \"name\": \"name2\",\r\n                    \"color\": \"#ffffff\"\r\n                }\r\n            ],\r\n            \"file\": {\r\n                \"url\": \"localhost/files/file.zip\",\r\n                \"size\": \"10MB\",\r\n                \"name\": \"name\"\r\n            },\r\n            \"likesCount\": 20,\r\n            \"commentsCount\": 5,\r\n            \"author\": {\r\n                \"id\": \"author_id_1\",\r\n                \"githubId\": \"ghid\",\r\n                \"beheshtiId\": \"bid\",\r\n                \"firstName\": \"firstName\",\r\n                \"lastName\": \"lastName\",\r\n                \"avatar\": \"localhost/files/avatars/id.jpg\"\r\n            },\r\n            \"repoUrl\": \"https://github.com\",\r\n            \"repoTitle\": \"title\",\r\n            \"repoDescription\": \"desc\",\r\n            \"forksCount\": 10,\r\n            \"starsCount\": 20,\r\n            \"repPicture\": \"https://github.com/img.jpg\"\r\n        },  \r\n        {   \r\n            \"id\": \"post1\",\r\n            \"content\": \"#H1\\n\\r#H2\\n\\rNormalText\",\r\n            \"tags\": [\r\n                {\r\n                    \"id\": \"tag_id_1\",\r\n                    \"name\": \"name1\",\r\n                    \"color\": \"#ffffff\"\r\n                },\r\n                {\r\n                    \"id\": \"tag_id_2\",\r\n                    \"name\": \"name2\",\r\n                    \"color\": \"#ffffff\"\r\n                }\r\n            ],\r\n            \"file\": {\r\n                \"url\": \"localhost/files/file.zip\",\r\n                \"size\": \"10MB\",\r\n                \"name\": \"name\"\r\n            },\r\n            \"likesCount\": 20,\r\n            \"commentsCount\": 5,\r\n            \"author\": {\r\n                \"id\": \"author_id_1\",\r\n                \"githubId\": \"ghid\",\r\n                \"beheshtiId\": \"bid\",\r\n                \"firstName\": \"firstName\",\r\n                \"lastName\": \"lastName\",\r\n                \"avatar\": \"localhost/files/avatars/id.jpg\"\r\n            },\r\n            \"repoUrl\": \"https://github.com\",\r\n            \"repoTitle\": \"title\",\r\n            \"repoDescription\": \"desc\",\r\n            \"forksCount\": 10,\r\n            \"starsCount\": 20,\r\n            \"repPicture\": \"https://github.com/img.jpg\"\r\n        }\r\n    ]\r\n}"
+								}
+							]
+						},
+						{
+							"name": "post",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Host}}/v1/posts/<id>",
+									"host": [
+										"{{Host}}"
+									],
+									"path": [
+										"v1",
+										"posts",
+										"<id>"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "post",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{Host}}/v1/posts/<id>",
+											"host": [
+												"{{Host}}"
+											],
+											"path": [
+												"v1",
+												"posts",
+												"<id>"
+											]
+										}
+									},
+									"_postman_previewlanguage": "json",
+									"header": null,
+									"cookie": [],
+									"body": "{\n    \"id\": \"post1\",\n    \"content\": \"#H1\\n\\r#H2\\n\\rNormalText\",\n    \"tags\": [\n        {\n            \"id\": \"tag_id_1\",\n            \"name\": \"name1\",\n            \"color\": \"#ffffff\"\n        },\n        {\n            \"id\": \"tag_id_2\",\n            \"name\": \"name2\",\n            \"color\": \"#ffffff\"\n        }\n    ],\n    \"file\": {\n        \"url\": \"localhost/files/file.zip\",\n        \"size\": \"10MB\",\n        \"name\": \"name\"\n    },\n    \"likesCount\": 20,\n    \"commentsCount\": 5,\n    \"author\": {\n        \"id\": \"author_id_1\",\n        \"githubId\": \"ghid\",\n        \"beheshtiId\": \"bid\",\n        \"firstName\": \"firstName\",\n        \"lastName\": \"lastName\",\n        \"avatar\": \"localhost/files/avatars/id.jpg\"\n    },\n    \"repoUrl\": \"https://github.com\",\n    \"repoTitle\": \"title\",\n    \"repoDescription\": \"desc\",\n    \"forksCount\": 10,\n    \"starsCount\": 20,\n    \"repPicture\": \"https://github.com/img.jpg\"\n}"
+								}
+							]
+						},
+						{
+							"name": "post",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"content\" : \"#H1\\n\\r#H2\\n\\rNormalText\",\r\n    \"tags\" : [\r\n        \"tag_id_1\", \"tag_id_2\"\r\n    ],\r\n    \"repoUrl\": \"https://github.com\",\r\n    \"fileUrl\": \"localhost/files/file.zip\"\r\n}"
+								},
+								"url": {
+									"raw": "{{Host}}/v1/posts",
+									"host": [
+										"{{Host}}"
+									],
+									"path": [
+										"v1",
+										"posts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "post",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Created_At\" : \"1639089858\",\r\n    \"Content\" : \"#H1\\n\\r#H2\\n\\rNormalText\"\r\n}"
+								},
+								"url": {
+									"raw": "{{Host}}/v1/post/<id>",
+									"host": [
+										"{{Host}}"
+									],
+									"path": [
+										"v1",
+										"post",
+										"<id>"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "post",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{Host}}/v1/post/<id>",
+									"host": [
+										"{{Host}}"
+									],
+									"path": [
+										"v1",
+										"post",
+										"<id>"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Comment",
+					"item": [
+						{
+							"name": "comment",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Host}}/v1/posts/<post_id>/comments",
+									"host": [
+										"{{Host}}"
+									],
+									"path": [
+										"v1",
+										"posts",
+										"<post_id>",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "comment",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{Host}}/v1/posts/<post_id>/comments/<comment_id>",
+									"host": [
+										"{{Host}}"
+									],
+									"path": [
+										"v1",
+										"posts",
+										"<post_id>",
+										"comments",
+										"<comment_id>"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "comment",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"content\" : \"This is a comment\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Host}}/v1/posts/<post_id>/comment",
+									"host": [
+										"{{Host}}"
+									],
+									"path": [
+										"v1",
+										"posts",
+										"<post_id>",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "like",
+					"item": [
+						{
+							"name": "like",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{Host}}/v1/posts/<id>/like",
+									"host": [
+										"{{Host}}"
+									],
+									"path": [
+										"v1",
+										"posts",
+										"<id>",
+										"like"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "unlike",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{Host}}/v1/posts/<id>/unlike",
+									"host": [
+										"{{Host}}"
+									],
+									"path": [
+										"v1",
+										"posts",
+										"<id>",
+										"unlike"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "files",
+			"item": [
+				{
+					"name": "file",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "enctype",
+									"value": "multipart/form-data",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Amin/Downloads/Arshad1401-ES.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Host}}/v1/file",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"v1",
+								"file"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "file",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/v1/file/61c6165b67bc1f31e88e5f0b",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"v1",
+								"file",
+								"61c6165b67bc1f31e88e5f0b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Host",
+			"value": "http://localhost:5000/api"
+		}
+	]
+}
