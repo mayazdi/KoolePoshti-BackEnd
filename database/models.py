@@ -28,10 +28,16 @@ class Post(db.Document):
     created_at = db.DateTimeField(required=True, default=datetime.datetime.utcnow)
     likes = db.ReferenceField(User)
     content = db.StringField()
-    tags = db.ListField(db.ReferenceField(Tag))
-    _file = db.ListField(db.ReferenceField(File))
+    user = db.ListField(db.ReferenceField(User))
+    _file = db.ListField(db.ReferenceField(File), verbose_name="file")
 
     meta = {'allow_inheritance': True}
+
+
+class Comment(db.Document):
+    content = db.StringField(required=True)
+    user = db.ReferenceField(User)
+    post = db.ReferenceField(Post, required=True)
 
 
 class GHPost(Post):
