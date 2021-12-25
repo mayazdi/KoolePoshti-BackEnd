@@ -4,6 +4,7 @@ dataclasses
 dnspython
 email-validator
 Flask
+Flask-Cors
 flask-mongoengine
 Flask-RESTful
 Flask-WTF
