@@ -6,7 +6,7 @@ from config import config_map
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
-cors = CORS(app)
+CORS(app, support_credentials=True)
 app.config['CORS_HEADERS'] = 'Content-Type'
 api = Api(app)
 app.config['MONGODB_SETTINGS'] = {
