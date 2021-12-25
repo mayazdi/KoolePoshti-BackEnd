@@ -1,10 +1,12 @@
 from flask import Response, request
 from database.models import Post
 from flask_restful import Resource
+from mongoengine.queryset.visitor import Q
 
 class PostApi(Resource):
     def get(self, id):
-        post = Post.objects.get(id=id).to_json()
+        post = Post.objects(Q(id=id) | Q(active=False)).to_json()
+        # post = Post.objects.get(id=id).to_json()
         if post:
             status_code = 200
         else:
@@ -30,7 +32,7 @@ class PostsApi(Resource):
             limit = (int) (limit)
             start_index = (page - 1) * limit
             end_index = page * limit
-            posts = Post.objects[start_index:end_index].to_json()
+            posts = Post.objects(Q(active=True))[start_index:end_index].to_json()
             # If has_next, ... is needed, get it from paginate file
         else:
             posts = Post.objects().to_json()
