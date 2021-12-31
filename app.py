@@ -19,5 +19,6 @@ initialize_routes(api, config_map['routing_prefix'])
 
 
 if __name__ == "__main__":
-    app.run(threaded=True, port=5000)
+    app.run(port=config_map['server_port'], debug=config_map['debug_mode'])
+    #threaded=True
 
