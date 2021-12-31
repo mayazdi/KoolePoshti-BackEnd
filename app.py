@@ -7,7 +7,8 @@ from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 CORS(app, support_credentials=True)
-app.config['CORS_HEADERS'] = 'Content-Type'
+# CORS(app, resources={r"/*": {"origins": "*"}})
+
 api = Api(app)
 app.config['MONGODB_SETTINGS'] = {
     'host': config_map['mongodb_host']
