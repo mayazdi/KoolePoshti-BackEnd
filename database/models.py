@@ -10,9 +10,14 @@ class User(db.Document):
     phone_number = db.IntField()
 
 
+class Category(db.Document):
+    title = db.StringField()
+
+
 class Tag(db.Document):
-    # hash
-    pass
+    name = db.StringField()
+    color = db.StringField(max_length=6, min_length=6)
+    category = db.ReferenceField(Category)
 
 
 class File(db.Document):
@@ -29,7 +34,7 @@ class Post(db.Document):
     active = db.BooleanField(required=True, default=True)
     created_at = db.DateTimeField(required=True, default=datetime.datetime.utcnow)
     likes = db.ReferenceField(User)
-    content = db.StringField()
+    content = db.StringField(db_field="cNT")
     user = db.ListField(db.ReferenceField(User))
     _file = db.ListField(db.ReferenceField(File), verbose_name="file")
 
