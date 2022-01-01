@@ -10,19 +10,19 @@
 			"name": "Authentication",
 			"item": [
 				{
-					"name": "register",
+					"name": "Sign-Up",
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
+								"type": "text",
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"Amin\",\r\n    \"password\": \"1234\"\r\n}",
+							"raw": "{\r\n    \"github_id\" : \"mayazdi\",\r\n    \"beheshti_email\" : \"mayazdi@gmail.com\",\r\n    \"password\" : \"passwordeamn\",\r\n    \"first_name\" : \"Amin\",\r\n    \"last_name\" : \"Yaz\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -30,19 +30,50 @@
 							}
 						},
 						"url": {
-							"raw": "{{Host}}/register",
+							"raw": "{{Host}}/v1/auth/signup",
 							"host": [
 								"{{Host}}"
 							],
 							"path": [
-								"register"
+								"v1",
+								"auth",
+								"signup"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "auth",
+					"name": "Sign-In",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"beheshti_email\" : \"mayazdi@gmail.com\",\r\n    \"password\" : \"passwordeamn\"\r\n}"
+						},
+						"url": {
+							"raw": "{{Host}}/v1/auth/signin",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -57,12 +88,14 @@
 							"raw": "{\r\n    \"username\": \"Amin\",\r\n    \"password\": \"1234\"\r\n}"
 						},
 						"url": {
-							"raw": "{{Host}}/auth",
+							"raw": "{{Host}}/v1/auth/signin",
 							"host": [
 								"{{Host}}"
 							],
 							"path": [
-								"auth"
+								"v1",
+								"auth",
+								"signin"
 							]
 						}
 					},
@@ -385,7 +418,7 @@
 			]
 		},
 		{
-			"name": "files",
+			"name": "Files",
 			"item": [
 				{
 					"name": "file",
@@ -438,6 +471,235 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "enctype",
+									"value": "multipart/form-data",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Amin/Downloads/Arshad1401-ES.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Host}}/v1/image",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"v1",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "image",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/v1/image/<image>",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"v1",
+								"image",
+								"<image>"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tags",
+			"item": [
+				{
+					"name": "tag",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/v1/tag",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"v1",
+								"tag"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tag",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/v1/tag",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"v1",
+								"tag"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/v1/category",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"v1",
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\" : \"Term\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/v1/category",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"v1",
+								"category"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rest",
+			"item": [
+				{
+					"name": "Open Graph",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/v1/og/jaywink/python-opengraph",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"v1",
+								"og",
+								"jaywink",
+								"python-opengraph"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OG",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Host}}/v1/og/<user>/<repo>",
+									"host": [
+										"{{Host}}"
+									],
+									"path": [
+										"v1",
+										"og",
+										"<user>",
+										"<repo>"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"openGraph\": {\r\n        \"image\": \"https://opengraph.githubassets.com/ba0f79732f34abb4a70124e7fc13126f3ea76221ee5ff1e99f85f6e68047f72f/jaywink/python-opengraph\",\r\n        \"image:alt\": \"Python module to parse Open Graph metadata on web pages - GitHub - jaywink/python-opengraph: Python module to parse Open Graph metadata on web pages\",\r\n        \"image:width\": \"1200\",\r\n        \"image:height\": \"600\",\r\n        \"site_name\": \"GitHub\",\r\n        \"type\": \"object\",\r\n        \"title\": \"GitHub - jaywink/python-opengraph: Python module to parse Open Graph metadata on web pages\",\r\n        \"url\": \"https://github.com/jaywink/python-opengraph\",\r\n        \"description\": \"Python module to parse Open Graph metadata on web pages - GitHub - jaywink/python-opengraph: Python module to parse Open Graph metadata on web pages\"\r\n    }\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Terms of Use",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/v1/terms",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"v1",
+								"terms"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OG",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Host}}/v1/og/<user>/<repo>",
+									"host": [
+										"{{Host}}"
+									],
+									"path": [
+										"v1",
+										"og",
+										"<user>",
+										"<repo>"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n  openGraph: {\r\n    image: 'https://avatars.githubusercontent.com/u/39955233?s=400&v=4',\r\n    alt: 'Contribute to madsams/bachelor-front development by creating an account on GitHub.',\r\n    title: 'madsams/bachelor-front',\r\n    url: 'https://github.com/madsams/bachelor-front/',\r\n    description: 'Contribute to madsams/bachelor-front development by creating an account on GitHub.'\r\n  }\r\n}"
+						}
+					]
 				}
 			]
 		}
