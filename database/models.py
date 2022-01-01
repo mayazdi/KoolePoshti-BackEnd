@@ -1,13 +1,24 @@
 from .db import db
 import datetime
 
+class Image(db.Document):
+    data = db.ImageField()
+
+
+class File(db.Document):
+    # url = db.StringField(required=True)
+    data = db.FileField()
+
+
 class User(db.Document):
-    github_id = db.StringField(required=True)
-    beheshti_id = db.StringField()
+    github_id = db.StringField()
+    beheshti_email = db.EmailField()
+    activation_token = db.StringField()
+    active = db.BooleanField(required=True, default=False)
+    password = db.StringField()
     first_name = db.StringField()
     last_name = db.StringField()
-    avatar_url = db.StringField()
-    phone_number = db.IntField()
+    avatar = db.ReferenceField(Image)
 
 
 class Category(db.Document):
@@ -18,11 +29,6 @@ class Tag(db.Document):
     name = db.StringField()
     color = db.StringField(max_length=6, min_length=6)
     category = db.ReferenceField(Category)
-
-
-class File(db.Document):
-    # url = db.StringField(required=True)
-    data = db.FileField()
 
 
 class Like(db.Document):

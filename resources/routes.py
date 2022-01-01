@@ -4,7 +4,7 @@ from .main import MainApi, TermsApi, OGApi
 from .file import FileApi, FilesApi
 from .tag import TagApi, CategoryApi
 from .like import LikeApi, UnLikeApi
-
+from .main import MainApi, TermsApi, LoginApi, SigninApi
 
 def initialize_routes(api, routing_prefix):
     api.add_resource(PostApi, routing_prefix + '/posts/<id>')
@@ -20,3 +20,5 @@ def initialize_routes(api, routing_prefix):
     api.add_resource(OGApi, routing_prefix + '/og/<user>/<repository>')
     api.add_resource(LikeApi, routing_prefix + '/posts/<id>/like')
     api.add_resource(UnLikeApi, routing_prefix + '/posts/<id>/unlike')
+    api.add_resource(LoginApi, routing_prefix + '/login')
+    api.add_resource(SigninApi, routing_prefix + '/signin')
