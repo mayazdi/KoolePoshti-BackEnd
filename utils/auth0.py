@@ -2,7 +2,7 @@ import json
 from six.moves.urllib.request import urlopen
 from functools import wraps
 
-from flask import request, jsonify, _request_ctx_stack
+from flask import Flask, request, jsonify, _request_ctx_stack
 from flask_cors import cross_origin
 from jose import jwt
 from config import config_map
@@ -10,7 +10,7 @@ from config import config_map
 API_AUDIENCE = config_map['api_audience']
 ALGORITHMS = config_map['algorithms']
 
-# app = Flask(__name__)
+app = Flask(__name__)
 
 # Error handler
 class AuthError(Exception):
@@ -18,7 +18,7 @@ class AuthError(Exception):
         self.error = error
         self.status_code = status_code
 
-@app.errorhandler(AuthError)
+@app.errorhandler(Exception)
 def handle_auth_error(ex):
     response = jsonify(ex.error)
     response.status_code = ex.status_code
