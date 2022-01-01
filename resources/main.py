@@ -12,7 +12,8 @@ class MainApi(Resource):
 class TermsApi(Resource):
     def get(self):
         with open("./terms.txt", "r") as f:
-            return Response(f.read(), status=200)
+            return {"content": f.read()}, 200
+            # return Response({"content": f.read()}, status=200)
 
 
 class OGApi(Resource):
