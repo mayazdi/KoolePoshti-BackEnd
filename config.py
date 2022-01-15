@@ -5,5 +5,6 @@ config_map = {
     'mongodb_host': 'mongodb://localhost/koole-poshti',
     'auth0_domain': 'dev--rjfqqmo.us.auth0.com',
     'api_audience': 'http://localhost:5000/api/v1/terms',
-    'algorithms': ["RS256"]
+    'algorithms': ["RS256"],
+    'jwt_secret_key': 'super_secret_key_for_jwt',
 }
