@@ -1,10 +1,10 @@
 from .post import PostApi, PostsApi
 from .comment import CommentApi, CommentsApi
-from .main import MainApi, TermsApi, OGApi
 from .file import FileApi, FilesApi
 from .tag import TagApi, CategoryApi
 from .like import LikeApi, UnLikeApi
-from .main import MainApi, TermsApi, SigninApi, SignupApi, ForgotApi
+from .main import MainApi, TermsApi, OGApi
+from .auth import SigninApi, SignupApi, ForgotApi
 
 def initialize_routes(api, routing_prefix):
     api.add_resource(PostApi, routing_prefix + '/posts/<id>')
