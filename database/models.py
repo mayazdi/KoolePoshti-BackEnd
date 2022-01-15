@@ -1,7 +1,7 @@
 from .db import db
 import datetime
 
-class Image(db.Document):
+class Avatar(db.Document):
     data = db.ImageField()
 
 
@@ -20,7 +20,7 @@ class User(db.Document):
     password = db.StringField(required=True)
     firstName = db.StringField(required=True)
     lastName = db.StringField(required=True)
-    avatar = db.ReferenceField(Image)
+    avatar = db.ReferenceField(Avatar)
 
 
 class Category(db.Document):
@@ -52,6 +52,7 @@ class Post(db.Document):
 
 class Comment(db.Document):
     content = db.StringField(required=True)
+    # Change this to author
     user = db.ReferenceField(User, required=True)
     post = db.ReferenceField(Post, required=True)
 

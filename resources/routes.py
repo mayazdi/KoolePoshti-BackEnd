@@ -1,6 +1,6 @@
 from .post import PostApi, PostsApi
 from .comment import CommentApi, CommentsApi
-from .file import FileApi, FilesApi
+from .file import FileApi, FilesApi, FileDownloadApi, AvatarApi, AvatarsApi
 from .tag import TagApi, CategoryApi
 from .like import LikeApi, UnLikeApi
 from .main import MainApi, TermsApi, OGApi
@@ -13,6 +13,8 @@ def initialize_routes(api, routing_prefix):
     api.add_resource(CommentApi, routing_prefix + '/posts/<id>/comments/<comment_id>')
     api.add_resource(MainApi, routing_prefix + '/')
     api.add_resource(TermsApi, routing_prefix + '/terms')
+    api.add_resource(AvatarApi, routing_prefix + '/avatar')
+    api.add_resource(AvatarsApi, routing_prefix + '/avatar/<id>')
     api.add_resource(FileApi, routing_prefix + '/file')
     api.add_resource(FilesApi, routing_prefix + '/file/<id>')
     api.add_resource(FileDownloadApi, routing_prefix + '/file/<id>/download')
