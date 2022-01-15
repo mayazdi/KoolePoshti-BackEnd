@@ -6,6 +6,7 @@ from mongoengine.queryset.visitor import Q
 from config import config_map
 import hashlib
 
+
 class SigninApi(Resource):
     def post(self):
         body = request.get_json()
@@ -13,10 +14,10 @@ class SigninApi(Resource):
             _beheshti_email = body['beheshtiEmail']
             _password = hashlib.md5("{}{}".format(body['password'], config_map['password_salt']).encode()).hexdigest()
         except Exception:
-            return "wrong format", 400
+            return {'error': 'wrong format'}, 400
         print("pedasag")
         # user = User.objects.get(beheshti_email=_beheshti_email)
-        user = User.objects(Q(beheshti_email=_beheshti_email) & Q(password=_password))
+        user = User.objects(Q(beheshtiEmail=_beheshti_email) & Q(password=_password))
         if user:
             access_token = create_access_token(identity=_beheshti_email)
             return jsonify(access_token=access_token)
@@ -28,7 +29,7 @@ class SignupApi(Resource):
     def post(self):
         body = request.get_json()
         try:
-            user = User.objects(Q(beheshti_email=body['beheshti_email']))
+            user = User.objects(Q(beheshti_email=body['beheshtiEmail']))
             if user:
                 return {'error': 'user already exists'}, 409
         except:
