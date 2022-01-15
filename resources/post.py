@@ -3,7 +3,7 @@ from database.models import Post
 from flask_restful import Resource
 from mongoengine.queryset.visitor import Q
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from utils.user import get_user_id, has_access
+from utils.user import get_user_id, is_post_author
 
 class PostApi(Resource):
     decorators = [jwt_required()]
@@ -21,7 +21,7 @@ class PostApi(Resource):
         try:
             post = Post.objects.with_id(id)
             if post:
-                if has_access(get_jwt_identity(), id):
+                if is_post_author(get_jwt_identity(), id):
                     body = request.get_json()
                     Post.objects.get(id=id).update(**body)
                     return {'msg': 'Post deleted'}, 200
@@ -36,7 +36,7 @@ class PostApi(Resource):
         try:
             post = Post.objects.with_id(id)
             if post:
-                if has_access(get_jwt_identity(), id):
+                if is_post_author(get_jwt_identity(), id):
                     post.delete()
                     return {'msg': 'Post deleted'}, 200
                 else:
