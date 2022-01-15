@@ -31,7 +31,7 @@ class OGApi(Resource):
         return {'openGraph': og._data}, 200
 
 
-class LoginApi(Resource):
+class SigninApi(Resource):
     def post(self):
         body = request.get_json()
         try:
@@ -49,7 +49,7 @@ class LoginApi(Resource):
             return {"Error": "User | Password wrong"}, 406
 
 
-class SigninApi(Resource):
+class SignupApi(Resource):
     def post(self):
         body = request.get_json()
         try:
@@ -69,3 +69,8 @@ class SigninApi(Resource):
         current_user = get_jwt_identity()
         print(current_user)
         return {'logged_in_as' : current_user}, 200
+
+
+class ForgotApi(Resource):
+    def post(self):
+        return {'status' : 'to be implemented'}, 200
