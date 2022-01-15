@@ -3,14 +3,15 @@ from flask_restful import Resource
 from database.models import User
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
 from mongoengine.queryset.visitor import Q
+from config import config_map
 import hashlib
 
 class SigninApi(Resource):
     def post(self):
         body = request.get_json()
         try:
-            _beheshti_email = body['beheshti_email']
-            _password = hashlib.md5(body['password'].encode()).hexdigest()
+            _beheshti_email = body['beheshtiEmail']
+            _password = hashlib.md5("{}{}".format(body['password'], config_map['password_salt']).encode()).hexdigest()
         except Exception:
             return "wrong format", 400
         print("pedasag")
@@ -34,7 +35,7 @@ class SignupApi(Resource):
             pass
 
         try:
-            body['password'] = hashlib.md5(body['password'].encode()).hexdigest()
+            body['password'] = hashlib.md5("{}{}".format(body['password'], config_map['password_salt']).encode()).hexdigest()
         except Exception:
             return {'error': 'password not provided'}, 400
         user = User(**body).save()
