@@ -2,9 +2,11 @@ from flask import Response, request, jsonify
 from database.models import Tag, Category
 from flask_restful import Resource
 from mongoengine.queryset.visitor import Q
-
+from flask_jwt_extended import jwt_required
 
 class TagApi(Resource):
+    decorators = [jwt_required()]
+    
     def get(self):
         categories = Category.objects()
         category_ids = [c.id for c in categories]
@@ -30,6 +32,8 @@ class TagApi(Resource):
 
 
 class CategoryApi(Resource):
+    decorators = [jwt_required()]
+
     def get(self):
         categories = Category.objects().to_json()
         return Response(categories, mimetype="application/json", status=200)

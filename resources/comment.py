@@ -2,8 +2,11 @@ from flask import Response, request
 from database.models import Comment, Post
 from flask_restful import Resource
 from mongoengine.queryset.visitor import Q
+from flask_jwt_extended import jwt_required
 
 class CommentsApi(Resource):
+    decorators = [jwt_required()]
+
     def get(self, id):
         comments = Comment.objects(post=id)
         # comments_count = len(comments)
@@ -21,6 +24,8 @@ class CommentsApi(Resource):
 
 
 class CommentApi(Resource):
+    decorators = [jwt_required()]
+
     def delete(self, id, comment_id):
         comment = Comment.objects(Q(id=comment_id)| Q(post=id))
         if comment:

@@ -2,8 +2,11 @@ from flask import Response, request
 from database.models import Post
 from flask_restful import Resource
 from mongoengine.queryset.visitor import Q
+from flask_jwt_extended import jwt_required
 
 class PostApi(Resource):
+    decorators = [jwt_required()]
+
     def get(self, id):
         post = Post.objects(Q(id=id) | Q(active=False)).to_json()
         # post = Post.objects.get(id=id).to_json()
@@ -24,6 +27,8 @@ class PostApi(Resource):
 
 
 class PostsApi(Resource):
+    decorators = [jwt_required()]
+    
     def get(self):
         page = request.args.get("page")
         limit = request.args.get("limit")

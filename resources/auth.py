@@ -35,9 +35,6 @@ class SignupApi(Resource):
 
         try:
             body['password'] = hashlib.md5(body['password'].encode()).hexdigest()
-            # body['password'] = body['password']
-            # print(body['password'])
-            # print(type(body['password']))
         except Exception:
             return {'error': 'password not provided'}, 400
         user = User(**body).save()

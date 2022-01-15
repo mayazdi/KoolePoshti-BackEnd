@@ -2,7 +2,7 @@ from flask import Response, request, jsonify
 from flask_restful import Resource
 from opengraph import OpenGraph
 from flask_cors import cross_origin
-from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
+from flask_jwt_extended import jwt_required
 
 
 class MainApi(Resource):
@@ -20,6 +20,8 @@ class TermsApi(Resource):
 
 
 class OGApi(Resource):
+    decorators = [jwt_required()]
+    
     def get(self, user, repository):
         og = OpenGraph(url="https://github.com/{}/{}".format(user, repository))
         return {'openGraph': og._data}, 200
