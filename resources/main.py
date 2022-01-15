@@ -53,12 +53,19 @@ class SignupApi(Resource):
     def post(self):
         body = request.get_json()
         try:
+            user = User.objects(Q(beheshti_email=body['beheshti_email']))
+            if user:
+                return {'error': 'user already exists'}, 409
+        except:
+            pass
+
+        try:
             body['password'] = hashlib.md5(body['password'].encode()).hexdigest()
             # body['password'] = body['password']
             # print(body['password'])
             # print(type(body['password']))
         except Exception:
-            return "wrong", 400
+            return {'error': 'password not provided'}, 400
         user = User(**body).save()
         id = user.id
         return {'id': str(id)}, 201
