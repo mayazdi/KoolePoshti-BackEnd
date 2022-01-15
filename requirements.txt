@@ -22,6 +22,7 @@ itsdangerous
 Jinja2
 MarkupSafe
 mongoengine
+Pillow
 pyasn1
 pycparser
 PyJWT
