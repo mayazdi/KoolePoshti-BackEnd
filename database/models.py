@@ -6,6 +6,8 @@ class Image(db.Document):
 
 
 class File(db.Document):
+    name = db.StringField()
+    size = db.IntField()
     # url = db.StringField(required=True)
     data = db.FileField()
 

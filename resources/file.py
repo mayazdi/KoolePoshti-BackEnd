@@ -3,8 +3,13 @@ from database.models import File
 from flask_restful import Resource
 from flask.helpers import send_file
 from flask_jwt_extended import jwt_required
-import io
+import io, os
 import datetime
+
+def get_file_size(f):
+    f.seek(0, os.SEEK_END)
+    return f.tell()
+
 
 class FileApi(Resource):
     decorators = [jwt_required()]
@@ -12,12 +17,17 @@ class FileApi(Resource):
     def post(self):
         f = request.files['file']
         _file = File()
-        _file.data.put(f, filename=str(datetime.datetime.utcnow())+"_"+f.filename)
+        name = str(datetime.datetime.utcnow())+"_"+f.filename
+        _file.name = name
+        _file.size = get_file_size(f)
+        print(_file.size)
+        _file.data.put(f, filename=name)
         _file.save()
         id = _file.id
         return {'id': str(id)}, 201
     
-class FilesApi(Resource):
+
+class FileDownloadApi(Resource):
     decorators = [jwt_required()]
 
     def get(self, id):

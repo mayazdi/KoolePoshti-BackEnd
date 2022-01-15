@@ -15,6 +15,7 @@ def initialize_routes(api, routing_prefix):
     api.add_resource(TermsApi, routing_prefix + '/terms')
     api.add_resource(FileApi, routing_prefix + '/file')
     api.add_resource(FilesApi, routing_prefix + '/file/<id>')
+    api.add_resource(FileDownloadApi, routing_prefix + '/file/<id>/download')
     api.add_resource(TagApi, routing_prefix + '/tag')
     api.add_resource(CategoryApi, routing_prefix + '/category')
     api.add_resource(OGApi, routing_prefix + '/og/<user>/<repository>')
