@@ -12,7 +12,7 @@ class File(db.Document):
 
 class User(db.Document):
     githubId = db.StringField()
-    beheshtiEmail = db.EmailField(required=True)
+    beheshtiEmail = db.EmailField(required=True, unique=True)
     # activation_token = db.StringField()
     active = db.BooleanField(required=True, default=False)
     password = db.StringField(required=True)
@@ -39,6 +39,7 @@ class Post(db.Document):
     # _id = db.IntField(required=True, unique=True)
     active = db.BooleanField(required=True, default=True)
     createdAt = db.DateTimeField(required=True, default=datetime.datetime.utcnow)
+    # Change this to author
     user = db.ReferenceField(User, required=True)
     content = db.StringField(required=True)
     likes = db.ListField(db.ReferenceField(User))
