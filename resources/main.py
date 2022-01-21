@@ -3,7 +3,8 @@ from flask_restful import Resource
 from opengraph import OpenGraph
 from flask_cors import cross_origin
 from flask_jwt_extended import jwt_required
-import os, math
+from math import floor
+import os
 
 class MainApi(Resource):
     @cross_origin(headers=["Content-Type", "Authorization"])
@@ -18,7 +19,7 @@ class TermsApi(Resource):
         with open(terms_file_path, "r") as f:
             return {
                 "content": f.read(),
-                "last_modified" : math.floor(os.path.getmtime(terms_file_path))
+                "last_modified" : floor(os.path.getmtime(terms_file_path))
                 }, 200
             # return Response({"content": f.read()}, status=200)
 
