@@ -8,4 +8,5 @@ config_map = {
     'algorithms': ["RS256"],
     'jwt_secret_key': 'super_secret_key_for_jwt',
     'password_salt': 'KoOlEpOsHtI_SaLt',
+    'github_accesstoken': "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",
 }
