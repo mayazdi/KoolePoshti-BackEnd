@@ -45,3 +45,7 @@ sudo update-alternatives --config python
 `netstat -a -n -o | findstr 5000`
 
 `kill {PID}`
+
+
+[https://support.google.com/accounts/answer/185833?p=InvalidSecondFactor&visit_id=637782802776271348-3112394180&rd=1](How to Authenticate with gmail smtp server)
+myaccount.google.com/apppasswords
