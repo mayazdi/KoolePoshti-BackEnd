@@ -6,6 +6,7 @@ charset-normalizer
 click
 cryptography
 dataclasses
+Deprecated
 dnspython
 ecdsa
 email-validator
@@ -25,8 +26,10 @@ mongoengine
 Pillow
 pyasn1
 pycparser
+PyGithub
 PyJWT
 pymongo
+PyNaCl
 python-jose
 python-opengraph-jaywink
 pytz
@@ -37,5 +40,6 @@ soupsieve
 typing-extensions
 urllib3
 Werkzeug
+wrapt
 WTForms
 zipp
