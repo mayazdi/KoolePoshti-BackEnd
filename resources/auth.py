@@ -20,7 +20,7 @@ class SigninApi(Resource):
         user = User.objects(Q(beheshtiEmail=_beheshti_email) & Q(password=_password))
         if user:
             access_token = create_access_token(identity=_beheshti_email)
-            return jsonify(access_token=access_token)
+            return jsonify(accessToken=access_token)
         else:
             return {"Error": "User | Password wrong"}, 406
 
