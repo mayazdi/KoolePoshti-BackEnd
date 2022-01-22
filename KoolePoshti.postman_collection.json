@@ -169,7 +169,7 @@
 			"name": "Posts",
 			"item": [
 				{
-					"name": "post",
+					"name": "Post",
 					"item": [
 						{
 							"name": "posts",
@@ -479,7 +479,7 @@
 					]
 				},
 				{
-					"name": "like",
+					"name": "Like",
 					"item": [
 						{
 							"name": "like",
