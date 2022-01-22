@@ -15,7 +15,7 @@ class MainApi(Resource):
 class TermsApi(Resource):
     @cross_origin(headers=["Content-Type", "Authorization"])
     def get(self):
-        terms_file_path = "./terms.txt"
+        terms_file_path = "./static/terms.txt"
         with open(terms_file_path, "r") as f:
             return {
                 "content": f.read(),
