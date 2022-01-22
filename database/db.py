@@ -6,7 +6,7 @@ db = MongoEngine()
 def initialize_db(app):
     db.init_app(app)
 
-def clear_db():
+def clean_db():
     # Clear model collections
     pass
 
@@ -16,4 +16,7 @@ def initialize_categories():
 
 def initialize_tags():
     # Default tags will be initialized here
+    pass
+
+def repopulater_tags():
     pass
