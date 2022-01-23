@@ -6,7 +6,7 @@ from os.path import isfile, join
 from flask import Flask
 from flask_mongoengine import MongoEngine
 import hashlib
-
+import jdatetime
 
 def connect_to_db():
     app = Flask(__name__)
@@ -29,8 +29,36 @@ def initialize_tags():
     # Default tags will be initialized here
     pass
 
+def repopulater_semester_tags():
+    # Create category if not already created
+    category_title = "semester"
+    try:
+        category = Category.objects.get(title=category_title)
+    except:
+        category = Category()
+        category.title = category_title
+        category.save()
+
+    semester_tag_name ="نیمسال {} {}-{}"
+    semesters_in_year = ["اول", "دوم"]
+    two_years_later = jdatetime.datetime.now().year + 2
+    for y in range(config_map['semester_since_year'], two_years_later):
+        for s in semesters_in_year:
+            semester = semester_tag_name.format(s, str(y)[2:], str(y+1)[2:])
+            try:
+                tag = Tag.objects.get(name=semester)
+            except:
+                tag = Tag()
+                tag.name = semester
+                tag.color = hashlib.md5(semester.encode()).hexdigest()[:6]
+                tag.category = category
+                tag.save()
+    return None
+
+    
 def repopulater_tags():
     connect_to_db()
+    repopulater_semester_tags()
     tags_location = config_map['tags_location']
     onlyfiles = [f for f in listdir(tags_location) if isfile(join(tags_location, f))]
     onlytxtfiles = [t for t in onlyfiles if t.endswith(".txt")]
@@ -46,6 +74,8 @@ def repopulater_tags():
         print(category.id)
         with open(join(tags_location, textfile)) as f:
             for line in f:
+                # remove newline character
+                line = line[:-1]
                 try:
                     tag = Tag.objects.get(name=line)
                 except:
