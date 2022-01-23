@@ -3,22 +3,22 @@ from database.models import Tag, Category
 from flask_restful import Resource
 from mongoengine.queryset.visitor import Q
 from flask_jwt_extended import jwt_required
+import json
 
 class TagApi(Resource):
     decorators = [jwt_required()]
     
     def get(self):
         categories = Category.objects()
-        category_ids = [c.id for c in categories]
-        
+        category_ids = [str(c.id) for c in categories]
+        print(category_ids)
         tags = {}
+
+        i = 0
         for _id in category_ids:
-            tags[categories.title] = Tag.objects.get(id=id)
-        
-        print(tags)
-        return '', 200
-        # tags = Tag.objects().to_json()
-        # return Response(jsonify(tags), mimetype="application/json", status=200)
+            tags[categories[i].title] = json.loads(Tag.objects.filter(category=_id).to_json())
+            i+=1
+        return tags, 200
     
     def post(self):
         body = request.get_json()
