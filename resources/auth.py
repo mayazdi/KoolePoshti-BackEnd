@@ -5,7 +5,7 @@ from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_requir
 from mongoengine.queryset.visitor import Q
 from config import config_map
 import hashlib
-
+import re
 
 class SigninApi(Resource):
     def post(self):
@@ -25,23 +25,43 @@ class SigninApi(Resource):
             return {"Error": "User | Password wrong"}, 406
 
 
+def user_already_exists(body):
+    try:
+        user = User.objects.get(beheshtiEmail=body['beheshtiEmail'])
+        if user:
+            return True            
+    except:
+        pass
+    return False
+
+def email_is_from_SBU(email):
+    return bool(re.match(r"^\S+@(mail\.)?sbu\.ac\.ir$", email))
+
+def body_conatins_email_field(body):
+    return 'beheshtiEmail' in body
+
+def body_conatins_password_field(body):
+    return 'password' in body
+
 class SignupApi(Resource):
     def post(self):
         body = request.get_json()
-        try:
-            user = User.objects(Q(beheshti_email=body['beheshtiEmail']))
-            if user:
+        if body_conatins_email_field(body):
+            if user_already_exists(body):
                 return {'error': 'user already exists'}, 409
-        except:
-            pass
-
-        try:
-            body['password'] = hashlib.md5("{}{}".format(body['password'], config_map['password_salt']).encode()).hexdigest()
-        except Exception:
-            return {'error': 'password not provided'}, 400
-        user = User(**body).save()
-        id = user.id
-        return {'id': str(id)}, 201
+            else:
+                if email_is_from_SBU(body['beheshtiEmail']):
+                    if body_conatins_password_field(body):
+                        body['password'] = hashlib.md5("{}{}".format(body['password'], config_map['password_salt']).encode()).hexdigest()
+                        user = User(**body).save()
+                        id = user.id
+                        return {'id': str(id)}, 201
+                    else:
+                        return {'error': 'password not provided'}, 400        
+                else:
+                    return {'error' : 'Email doesn\'t match beheshti'}, 400
+        else:
+            return {'error' : 'Email not provided'}, 400
     
     # @app.route("/protected", methods=["GET"])
     @jwt_required()
