@@ -11,4 +11,5 @@ config_map = {
     'password_salt': 'KoOlEpOsHtI_SaLt',
     'tags_location' : "./static/tags/",
     'github_accesstoken': "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",
+    'semester_since_year' : 1396,
 }
