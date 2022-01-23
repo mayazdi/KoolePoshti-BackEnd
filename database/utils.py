@@ -8,7 +8,6 @@ from flask_mongoengine import MongoEngine
 import hashlib
 import jdatetime
 
-
 def connect_to_db():
     app = Flask(__name__)
     app.config['MONGODB_SETTINGS'] = {
@@ -75,6 +74,8 @@ def repopulater_tags():
         print(category.id)
         with open(join(tags_location, textfile)) as f:
             for line in f:
+                # remove newline character
+                line = line[:-1]
                 try:
                     tag = Tag.objects.get(name=line)
                 except:
