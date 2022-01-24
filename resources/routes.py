@@ -4,7 +4,7 @@ from .file import FileApi, FilesApi, FileDownloadApi, AvatarApi, AvatarsApi
 from .tag import TagApi, CategoryApi
 from .like import LikeApi, UnLikeApi
 from .main import MainApi, TermsApi, OGApi
-from .auth import SigninApi, SignupApi, ForgotApi
+from .auth import SigninApi, SignupApi, ForgotApi, ActivateApi
 
 def initialize_routes(api, routing_prefix):
     api.add_resource(PostApi, routing_prefix + '/posts/<id>')
@@ -26,4 +26,5 @@ def initialize_routes(api, routing_prefix):
     api.add_resource(SigninApi, routing_prefix + '/auth/signin')
     api.add_resource(SignupApi, routing_prefix + '/auth/signup')
     api.add_resource(ForgotApi, routing_prefix + '/auth/forgot')
+    api.add_resource(ActivateApi, routing_prefix + '/auth/activate')
 
