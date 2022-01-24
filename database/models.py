@@ -18,6 +18,7 @@ class User(db.Document):
     # activation_token = db.StringField()
     active = db.BooleanField(required=True, default=False)
     password = db.StringField(required=True)
+    forgotten_password = db.BooleanField(required=True, default=False)
     otp_valid_date = db.DateTimeField(required=True, default=datetime.datetime.utcnow() + datetime.timedelta(days=1))
     otp = db.StringField(required=True)
     firstName = db.StringField(required=True)
