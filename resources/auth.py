@@ -23,6 +23,7 @@ class SigninApi(Resource):
         user = User.objects(Q(beheshtiEmail=_beheshti_email) & Q(password=_password))
         if user:
             if user[0].active:
+                user[0].update(forgotten_password=False)
                 access_token = create_access_token(identity=_beheshti_email)
                 return jsonify(access_token=access_token)
             else:
@@ -90,7 +91,16 @@ class SignupApi(Resource):
 
 class ForgotApi(Resource):
     def post(self):
-        return {'status' : 'to be implemented'}, 200
+        body = request.get_json()
+        if 'beheshtiEmail' in body:
+            user = User.objects(Q(beheshtiEmail=body['beheshtiEmail']))
+            if user:
+                user[1].update(forgotten_password=True)
+                send_otp_email(user.beheshtiEmail, user.firstName + ' ' + user.lastName, user.otp)
+            else:
+                return {"Error": "User not found"}, 406
+        else:
+            return {'error' : 'Email not provided'}, 400
 
 class ActivateApi(Resource):
     def post(self):
@@ -121,3 +131,17 @@ class ActivateApi(Resource):
                 return {"Error": "Already activated"}, 400
         else:
             return {"Error": "User not found"}, 406
+
+
+class ResetPasswordApi(Response):
+    def post(self):
+        # TODO: check for OTP. or if user is loggedin
+        body = request.get_json()
+        if 'beheshtiEmail' in body and 'password' in body:
+            user = User.objects(Q(beheshtiEmail=body['beheshtiEmail']))
+            user.update(password=hashlib.md5("{}{}".format(body['password'], config_map['password_salt']).encode()).hexdigest())
+            user.update(forgotten_password=False)
+            access_token = create_access_token(identity=body['beheshtiEmail'])
+            return jsonify(access_token=access_token)
+        else:
+            return {'error': 'email or password not provided'}, 400
