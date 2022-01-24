@@ -4,6 +4,8 @@ from database.models import User
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
 from mongoengine.queryset.visitor import Q
 from config import config_map
+from utils.otp import generate_otp
+from utils.mail import send_otp_email
 import hashlib
 import re
 import datetime
@@ -20,9 +22,12 @@ class SigninApi(Resource):
         # user = User.objects.get(beheshti_email=_beheshti_email)
         user = User.objects(Q(beheshtiEmail=_beheshti_email) & Q(password=_password))
         if user:
+            if user[0].active:
                 access_token = create_access_token(identity=_beheshti_email)
                 return jsonify(access_token=access_token)
             else:
+                return {"Error": "User not activated yet"}, 400
+        else:
             return {"Error": "User | Password wrong"}, 406
 
 
@@ -36,12 +41,16 @@ def user_already_exists(body):
     return False
 
 def email_is_from_SBU(email):
-    return bool(re.match(r"^\S+@(mail\.)?sbu\.ac\.ir$", email))
+    return True
+    # return bool(re.match(r"^\S+@(mail\.)?sbu\.ac\.ir$", email))
 
 def body_conatins_email_field(body):
     return 'beheshtiEmail' in body
 
 def body_conatins_password_field(body):
+    return 'password' in body
+
+def body_conatins_names_fields(body):
     return 'password' in body
 
 class SignupApi(Resource):
