@@ -25,7 +25,7 @@ class SigninApi(Resource):
             if user[0].active:
                 user[0].update(forgotten_password=False)
                 access_token = create_access_token(identity=_beheshti_email)
-                return jsonify(access_token=access_token)
+                return jsonify(accessToken=access_token)
             else:
                 return {"Error": "User not activated yet"}, 400
         else:
@@ -133,7 +133,7 @@ class ActivateApi(Resource):
             return {"Error": "User not found"}, 406
 
 
-class ResetPasswordApi(Response):
+class ResetPasswordApi(Resource):
     def post(self):
         # TODO: check for OTP. or if user is loggedin
         body = request.get_json()
@@ -142,6 +142,6 @@ class ResetPasswordApi(Response):
             user.update(password=hashlib.md5("{}{}".format(body['password'], config_map['password_salt']).encode()).hexdigest())
             user.update(forgotten_password=False)
             access_token = create_access_token(identity=body['beheshtiEmail'])
-            return jsonify(access_token=access_token)
+            return jsonify(accessToken=access_token)
         else:
             return {'error': 'email or password not provided'}, 400
