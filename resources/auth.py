@@ -53,10 +53,17 @@ class SignupApi(Resource):
             else:
                 if email_is_from_SBU(body['beheshtiEmail']):
                     if body_conatins_password_field(body):
-                        body['password'] = hashlib.md5("{}{}".format(body['password'], config_map['password_salt']).encode()).hexdigest()
-                        user = User(**body).save()
-                        id = user.id
-                        return {'id': str(id)}, 201
+                        if body_conatins_names_fields(body):
+                            body['password'] = hashlib.md5("{}{}".format(body['password'], config_map['password_salt']).encode()).hexdigest()
+                            user = User(**body)
+                            user.otp = generate_otp()
+                            print(user.otp)
+                            send_otp_email(body['beheshtiEmail'], body['firstName'] + ' ' + body['lastName'], user.otp)
+                            user.save()
+                            id = user.id
+                            return {'id': str(id)}, 201
+                        else:
+                            return {'error': 'lastName or firstName not provided'}, 400
                     else:
                         return {'error': 'password not provided'}, 400        
                 else:
