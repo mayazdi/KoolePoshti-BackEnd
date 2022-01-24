@@ -52,12 +52,17 @@ class PostsApi(Resource):
     def get(self):
         page = request.args.get("page")
         limit = request.args.get("limit")
+        tags = request.args.getlist("tags")
+        query = Q(active=True)
+        for t in tags:
+            query = query & Q(tags=t)
+        print(query)
         if page and limit:
             page = (int) (page)
             limit = (int) (limit)
             start_index = (page - 1) * limit
             end_index = page * limit
-            posts = Post.objects(Q(active=True))[start_index:end_index].to_json()
+            posts = Post.objects(query)[start_index:end_index].to_json()
             # If has_next, ... is needed, get it from paginate file
         else:
             posts = Post.objects().to_json()
