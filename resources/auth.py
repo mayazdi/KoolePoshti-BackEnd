@@ -6,6 +6,7 @@ from mongoengine.queryset.visitor import Q
 from config import config_map
 import hashlib
 import re
+import datetime
 
 class SigninApi(Resource):
     def post(self):
@@ -74,3 +75,33 @@ class SignupApi(Resource):
 class ForgotApi(Resource):
     def post(self):
         return {'status' : 'to be implemented'}, 200
+
+class ActivateApi(Resource):
+    def post(self):
+        body = request.get_json()
+        try:
+            _beheshti_email = body['beheshtiEmail']
+            otp = body['otp']
+        except Exception:
+            return {'error': 'wrong format'}, 400
+        user = User.objects(Q(beheshtiEmail=_beheshti_email))
+        if user:
+            if not user[0].active:
+                if user[0].otp_valid_date >= datetime.datetime.utcnow():
+                    if user[0].otp == otp:
+                        # user.active = True
+                        user.update(active=True)
+                        return {"msg": "User activated successfully!"}, 200
+                    else:
+                        return {"Error": "Wrong OTP!"}, 400
+                else:
+                    user.otp = generate_otp()
+                    user.otp_valid_date = datetime.datetime.utcnow() + datetime.timedelta(days=1)
+                    user.update()
+                    print(user.otp)
+                    send_otp_email(user.beheshtiEmail, user.firstName + ' ' + user.lastName, user.otp)
+                    return {"Error": "OTP has been expired!"}, 400
+            else:
+                return {"Error": "Already activated"}, 400
+        else:
+            return {"Error": "User not found"}, 406
