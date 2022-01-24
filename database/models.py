@@ -48,8 +48,9 @@ class Post(db.Document):
     user = db.ReferenceField(User, required=True)
     content = db.StringField(required=True)
     likes = db.ListField(db.ReferenceField(User))
+    # TODO: change file to files
     file = db.ListField(db.ReferenceField(File))
-
+    tags = db.ListField(db.ReferenceField(Tag))
     meta = {'allow_inheritance': True}
 
 
