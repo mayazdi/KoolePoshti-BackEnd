@@ -22,7 +22,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"githubId\" : \"mayazdi\",\r\n    \"beheshtiEmail\" : \"mayazdi@gmail.com\",\r\n    \"password\" : \"passwordeamn\",\r\n    \"firstName\" : \"Amin\",\r\n    \"lastName\" : \"Yaz\"\r\n}",
+							"raw": "{\r\n    \"githubId\" : \"mayazdi\",\r\n    \"beheshtiEmail\" : \"amin.yazdi@atrovan.com\",\r\n    \"password\" : \"passwordeamn\",\r\n    \"firstName\" : \"Amin\",\r\n    \"lastName\" : \"Yazdi\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -44,6 +44,35 @@
 					"response": []
 				},
 				{
+					"name": "Activate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"beheshtiEmail\" : \"amin.yazdi@atrovan.com\",\r\n    \"otp\" : \"97314\"\r\n}"
+						},
+						"url": {
+							"raw": "{{Host}}/v1/auth/activate",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"activate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Sign-In",
 					"request": {
 						"method": "POST",
@@ -56,7 +85,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"beheshtiEmail\" : \"mayazdi@gmail.com\",\r\n    \"password\" : \"passwordeamn\"\r\n}"
+							"raw": "{\r\n    \"beheshtiEmail\" : \"amin.yazdi@atrovan.com\",\r\n    \"password\" : \"passwordeamn\"\r\n}"
 						},
 						"url": {
 							"raw": "{{Host}}/v1/auth/signin",
@@ -100,6 +129,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"beheshtiEmail\" : \"mayazdi@gmail.com\",\r\n    \"password\" : \"passwordeamn\"\r\n}"
+						},
+						"url": {
+							"raw": "{{Host}}/v1/auth/reset",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"reset"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -121,18 +179,24 @@
 							}
 						},
 						"url": {
-							"raw": "{{Host}}/v1/user?jwt={{JWT_TOKEN}}",
+							"raw": "{{Host}}/v1/:user_id?jwt={{JWT_TOKEN}}",
 							"host": [
 								"{{Host}}"
 							],
 							"path": [
 								"v1",
-								"user"
+								":user_id"
 							],
 							"query": [
 								{
 									"key": "jwt",
 									"value": "{{JWT_TOKEN}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "user_id",
+									"value": ""
 								}
 							]
 						}
@@ -145,18 +209,24 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{Host}}/v1/user?jwt={{JWT_TOKEN}}",
+							"raw": "{{Host}}/v1/:user_id?jwt={{JWT_TOKEN}}",
 							"host": [
 								"{{Host}}"
 							],
 							"path": [
 								"v1",
-								"user"
+								":user_id"
 							],
 							"query": [
 								{
 									"key": "jwt",
 									"value": "{{JWT_TOKEN}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "user_id",
+									"value": ""
 								}
 							]
 						}
@@ -177,7 +247,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Host}}/v1/posts?page=1&limit=20&jwt={{JWT_TOKEN}}",
+									"raw": "{{Host}}/v1/posts?page=1&limit=20&tags=:tag_id1&tags=:tag_id2&jwt={{JWT_TOKEN}}",
 									"host": [
 										"{{Host}}"
 									],
@@ -193,6 +263,14 @@
 										{
 											"key": "limit",
 											"value": "20"
+										},
+										{
+											"key": "tags",
+											"value": ":tag_id1"
+										},
+										{
+											"key": "tags",
+											"value": ":tag_id2"
 										},
 										{
 											"key": "jwt",
@@ -241,19 +319,25 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Host}}/v1/posts/<id>?jwt={{JWT_TOKEN}}",
+									"raw": "{{Host}}/v1/posts/:post_id?jwt={{JWT_TOKEN}}",
 									"host": [
 										"{{Host}}"
 									],
 									"path": [
 										"v1",
 										"posts",
-										"<id>"
+										":post_id"
 									],
 									"query": [
 										{
 											"key": "jwt",
 											"value": "{{JWT_TOKEN}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "post_id",
+											"value": ""
 										}
 									]
 								}
@@ -296,7 +380,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"content\" : \"#H1\\n\\r#H2\\n\\rNormalssssssssssssssssText\"\r\n}"
+									"raw": "{\r\n    \"content\" : \"#H1\\n\\r#H2\\n\\rNormalssssssssssssssssText\",\r\n    \"tags\" : [\r\n        \"61eeb13c918f645f4cd0ca8e\",\r\n        \"61eeb13c918f645f4cd0ca9a\"\r\n    ]\r\n}"
 								},
 								"url": {
 									"raw": "{{Host}}/v1/posts?jwt={{JWT_TOKEN}}",
@@ -333,19 +417,25 @@
 									"raw": "{\r\n    \"Created_At\" : \"1639089858\",\r\n    \"Content\" : \"#H1\\n\\r#H2\\n\\rNormalText\"\r\n}"
 								},
 								"url": {
-									"raw": "{{Host}}/v1/posts/<id>?jwt={{JWT_TOKEN}}",
+									"raw": "{{Host}}/v1/posts/:post_id?jwt={{JWT_TOKEN}}",
 									"host": [
 										"{{Host}}"
 									],
 									"path": [
 										"v1",
 										"posts",
-										"<id>"
+										":post_id"
 									],
 									"query": [
 										{
 											"key": "jwt",
 											"value": "{{JWT_TOKEN}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "post_id",
+											"value": ""
 										}
 									]
 								}
@@ -364,19 +454,25 @@
 									}
 								],
 								"url": {
-									"raw": "{{Host}}/v1/posts/<id>?jwt={{JWT_TOKEN}}",
+									"raw": "{{Host}}/v1/posts/:post_id?jwt={{JWT_TOKEN}}",
 									"host": [
 										"{{Host}}"
 									],
 									"path": [
 										"v1",
 										"posts",
-										"<id>"
+										":post_id"
 									],
 									"query": [
 										{
 											"key": "jwt",
 											"value": "{{JWT_TOKEN}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "post_id",
+											"value": ""
 										}
 									]
 								}
@@ -394,20 +490,26 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{Host}}/v1/posts/<post_id>/comments?jwt={{JWT_TOKEN}}",
+									"raw": "{{Host}}/v1/posts/:post_id/comments?jwt={{JWT_TOKEN}}",
 									"host": [
 										"{{Host}}"
 									],
 									"path": [
 										"v1",
 										"posts",
-										"<post_id>",
+										":post_id",
 										"comments"
 									],
 									"query": [
 										{
 											"key": "jwt",
 											"value": "{{JWT_TOKEN}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "post_id",
+											"value": ""
 										}
 									]
 								}
@@ -420,21 +522,31 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{Host}}/v1/posts/<post_id>/comments/<comment_id>?jwt={{JWT_TOKEN}}",
+									"raw": "{{Host}}/v1/posts/:post_id/comments/:comment_id?jwt={{JWT_TOKEN}}",
 									"host": [
 										"{{Host}}"
 									],
 									"path": [
 										"v1",
 										"posts",
-										"<post_id>",
+										":post_id",
 										"comments",
-										"<comment_id>"
+										":comment_id"
 									],
 									"query": [
 										{
 											"key": "jwt",
 											"value": "{{JWT_TOKEN}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "post_id",
+											"value": ""
+										},
+										{
+											"key": "comment_id",
+											"value": ""
 										}
 									]
 								}
@@ -456,20 +568,26 @@
 									}
 								},
 								"url": {
-									"raw": "{{Host}}/v1/posts/<post_id>/comments?jwt={{JWT_TOKEN}}",
+									"raw": "{{Host}}/v1/posts/:post_id/comments?jwt={{JWT_TOKEN}}",
 									"host": [
 										"{{Host}}"
 									],
 									"path": [
 										"v1",
 										"posts",
-										"<post_id>",
+										":post_id",
 										"comments"
 									],
 									"query": [
 										{
 											"key": "jwt",
 											"value": "{{JWT_TOKEN}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "post_id",
+											"value": ""
 										}
 									]
 								}
@@ -487,20 +605,26 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "{{Host}}/v1/posts/<id>/like?jwt={{JWT_TOKEN}}",
+									"raw": "{{Host}}/v1/posts/:post_id/like?jwt={{JWT_TOKEN}}",
 									"host": [
 										"{{Host}}"
 									],
 									"path": [
 										"v1",
 										"posts",
-										"<id>",
+										":post_id",
 										"like"
 									],
 									"query": [
 										{
 											"key": "jwt",
 											"value": "{{JWT_TOKEN}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "post_id",
+											"value": ""
 										}
 									]
 								}
@@ -513,20 +637,26 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "{{Host}}/v1/posts/<id>/unlike?jwt={{JWT_TOKEN}}",
+									"raw": "{{Host}}/v1/posts/:post_id/unlike?jwt={{JWT_TOKEN}}",
 									"host": [
 										"{{Host}}"
 									],
 									"path": [
 										"v1",
 										"posts",
-										"<id>",
+										":post_id",
 										"unlike"
 									],
 									"query": [
 										{
 											"key": "jwt",
 											"value": "{{JWT_TOKEN}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "post_id",
+											"value": ""
 										}
 									]
 								}
@@ -585,19 +715,25 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{Host}}/v1/files/<file_id>?jwt={{JWT_TOKEN}}",
+							"raw": "{{Host}}/v1/files/:file_id?jwt={{JWT_TOKEN}}",
 							"host": [
 								"{{Host}}"
 							],
 							"path": [
 								"v1",
 								"files",
-								"<file_id>"
+								":file_id"
 							],
 							"query": [
 								{
 									"key": "jwt",
 									"value": "{{JWT_TOKEN}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "file_id",
+									"value": ""
 								}
 							]
 						}
@@ -610,20 +746,26 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{Host}}/v1/files/<file_id>/download?jwt={{JWT_TOKEN}}",
+							"raw": "{{Host}}/v1/files/:file_id/download?jwt={{JWT_TOKEN}}",
 							"host": [
 								"{{Host}}"
 							],
 							"path": [
 								"v1",
 								"files",
-								"<file_id>",
+								":file_id",
 								"download"
 							],
 							"query": [
 								{
 									"key": "jwt",
 									"value": "{{JWT_TOKEN}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "file_id",
+									"value": ""
 								}
 							]
 						}
@@ -675,19 +817,25 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{Host}}/v1/avatar/<id>?jwt={{JWT_TOKEN}}",
+							"raw": "{{Host}}/v1/avatar/:avatar_id?jwt={{JWT_TOKEN}}",
 							"host": [
 								"{{Host}}"
 							],
 							"path": [
 								"v1",
 								"avatar",
-								"<id>"
+								":avatar_id"
 							],
 							"query": [
 								{
 									"key": "jwt",
 									"value": "{{JWT_TOKEN}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "avatar_id",
+									"value": ""
 								}
 							]
 						}
