@@ -1,17 +1,20 @@
 {
+	"variables": [],
 	"info": {
-		"_postman_id": "4e4e4bb0-5adf-4c22-8ed1-85f2ad4e3d15",
 		"name": "KoolePoshti",
+		"_postman_id": "d0fce045-9f69-2119-76c3-0afd6ccb2ccd",
 		"description": "Bs.C. Project APIs.",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Authentication",
+			"description": "",
 			"item": [
 				{
 					"name": "Sign-Up",
 					"request": {
+						"url": "{{Host}}/v1/auth/signup",
 						"method": "POST",
 						"header": [
 							{
@@ -22,30 +25,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"githubId\" : \"mayazdi\",\r\n    \"beheshtiEmail\" : \"amin.yazdi@atrovan.com\",\r\n    \"password\" : \"passwordeamn\",\r\n    \"firstName\" : \"Amin\",\r\n    \"lastName\" : \"Yazdi\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\r\n    \"githubId\" : \"mayazdi\",\r\n    \"beheshtiEmail\" : \"amin.yazdi@atrovan.com\",\r\n    \"password\" : \"passwordeamn\",\r\n    \"firstName\" : \"Amin\",\r\n    \"lastName\" : \"Yazdi\"\r\n}"
 						},
-						"url": {
-							"raw": "{{Host}}/v1/auth/signup",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"v1",
-								"auth",
-								"signup"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "Activate",
 					"request": {
+						"url": "{{Host}}/v1/auth/activate",
 						"method": "POST",
 						"header": [
 							{
@@ -58,23 +47,14 @@
 							"mode": "raw",
 							"raw": "{\r\n    \"beheshtiEmail\" : \"amin.yazdi@atrovan.com\",\r\n    \"otp\" : \"97314\"\r\n}"
 						},
-						"url": {
-							"raw": "{{Host}}/v1/auth/activate",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"v1",
-								"auth",
-								"activate"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "Sign-In",
 					"request": {
+						"url": "{{Host}}/v1/auth/signin",
 						"method": "POST",
 						"header": [
 							{
@@ -87,75 +67,47 @@
 							"mode": "raw",
 							"raw": "{\r\n    \"beheshtiEmail\" : \"amin.yazdi@atrovan.com\",\r\n    \"password\" : \"passwordeamn\"\r\n}"
 						},
-						"url": {
-							"raw": "{{Host}}/v1/auth/signin",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"v1",
-								"auth",
-								"signin"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "Forgot Password",
 					"request": {
+						"url": "{{Host}}/v1/auth/forgetPassword",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"type": "text"
+								"description": ""
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"beheshtiEmail\" : \"mayazdi@gmail.com\"\r\n}"
 						},
-						"url": {
-							"raw": "{{Host}}/v1/auth/forgot",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"v1",
-								"auth",
-								"forgot"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "Reset Password",
 					"request": {
+						"url": "{{Host}}/v1/auth/resetPassword",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"type": "text",
-								"value": "application/json"
+								"value": "application/json",
+								"description": ""
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"beheshtiEmail\" : \"mayazdi@gmail.com\",\r\n    \"password\" : \"passwordeamn\"\r\n}"
+							"raw": "{\r\n    \"beheshtiEmail\" : \"mayazdi@gmail.com\",\r\n    \"otp\": \"12345\",\r\n    \"password\" : \"passwordeamn\"\r\n}"
 						},
-						"url": {
-							"raw": "{{Host}}/v1/auth/reset",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"v1",
-								"auth",
-								"reset"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				}
@@ -163,91 +115,86 @@
 		},
 		{
 			"name": "User",
+			"description": "",
 			"item": [
 				{
 					"name": "Update User",
 					"request": {
+						"url": "{{Host}}/v1/user",
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": ""
 						},
-						"url": {
-							"raw": "{{Host}}/v1/:user_id?jwt={{JWT_TOKEN}}",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"v1",
-								":user_id"
-							],
-							"query": [
-								{
-									"key": "jwt",
-									"value": "{{JWT_TOKEN}}"
-								}
-							],
-							"variable": [
-								{
-									"key": "user_id",
-									"value": ""
-								}
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "Get user info",
 					"request": {
+						"url": "{{Host}}/v1/user",
 						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{Host}}/v1/:user_id?jwt={{JWT_TOKEN}}",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"v1",
-								":user_id"
-							],
-							"query": [
-								{
-									"key": "jwt",
-									"value": "{{JWT_TOKEN}}"
-								}
-							],
-							"variable": [
-								{
-									"key": "user_id",
-									"value": ""
-								}
-							]
-						}
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
 					},
-					"response": []
+					"response": [
+						{
+							"id": "98d6cc60-cedf-4c82-8462-8b9a39c51e0c",
+							"name": "Get user info",
+							"originalRequest": {
+								"url": "{{Host}}/v1/user",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT_TOKEN}}",
+										"type": "text",
+										"description": ""
+									}
+								],
+								"body": {}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "parsed",
+							"header": [],
+							"cookie": [],
+							"responseTime": 0,
+							"body": "{\n\t\"id\": \"userId\",\n\t\"githubId\": \"githubId\",\n\t\"beheshtiEmail\": \"beheshtiEmail\",\n\t\"firstName\": \"firstName\",\n\t\"lastName\": \"lastName\",\n\t\"avatar\": \"avatarUrl\"\n}"
+						}
+					]
 				}
 			]
 		},
 		{
 			"name": "Posts",
+			"description": "",
 			"item": [
 				{
 					"name": "Post",
+					"description": "",
 					"item": [
 						{
 							"name": "posts",
 							"request": {
-								"method": "GET",
-								"header": [],
 								"url": {
-									"raw": "{{Host}}/v1/posts?page=1&limit=20&tags=:tag_id1&tags=:tag_id2&jwt={{JWT_TOKEN}}",
+									"raw": "{{Host}}/v1/posts?page=1&limit=20&tags=tag_id1&tags=tag_id2",
 									"host": [
 										"{{Host}}"
 									],
@@ -258,33 +205,47 @@
 									"query": [
 										{
 											"key": "page",
-											"value": "1"
+											"value": "1",
+											"equals": true,
+											"description": ""
 										},
 										{
 											"key": "limit",
-											"value": "20"
+											"value": "20",
+											"equals": true,
+											"description": ""
 										},
 										{
 											"key": "tags",
-											"value": ":tag_id1"
+											"value": "tag_id1",
+											"equals": true,
+											"description": ""
 										},
 										{
 											"key": "tags",
-											"value": ":tag_id2"
-										},
-										{
-											"key": "jwt",
-											"value": "{{JWT_TOKEN}}"
+											"value": "tag_id2",
+											"equals": true,
+											"description": ""
 										}
-									]
-								}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT_TOKEN}}",
+										"description": ""
+									}
+								],
+								"body": {},
+								"description": ""
 							},
 							"response": [
 								{
+									"id": "0aad6f94-d72a-4bcd-98ab-6047fc1c7607",
 									"name": "posts",
 									"originalRequest": {
-										"method": "GET",
-										"header": [],
 										"url": {
 											"raw": "{{Host}}/v1/posts?page=1&limit=20",
 											"host": [
@@ -297,29 +258,38 @@
 											"query": [
 												{
 													"key": "page",
-													"value": "1"
+													"value": "1",
+													"equals": true,
+													"description": ""
 												},
 												{
 													"key": "limit",
-													"value": "20"
+													"value": "20",
+													"equals": true,
+													"description": ""
 												}
-											]
-										}
+											],
+											"variable": []
+										},
+										"method": "GET",
+										"header": [],
+										"body": {}
 									},
+									"status": "OK",
+									"code": 200,
 									"_postman_previewlanguage": "json",
+									"_postman_previewtype": "html",
 									"header": null,
 									"cookie": [],
-									"body": "{\"posts\" : \r\n    [\r\n        {\r\n            \"id\": \"post1\",\r\n            \"content\": \"#H1\\n\\r#H2\\n\\rNormalText\",\r\n            \"tags\": [\r\n                {\r\n                    \"id\": \"tag_id_1\",\r\n                    \"name\": \"name1\",\r\n                    \"color\": \"#ffffff\"\r\n                },\r\n                {\r\n                    \"id\": \"tag_id_2\",\r\n                    \"name\": \"name2\",\r\n                    \"color\": \"#ffffff\"\r\n                }\r\n            ],\r\n            \"file\": {\r\n                \"url\": \"localhost/files/file.zip\",\r\n                \"size\": \"10MB\",\r\n                \"name\": \"name\"\r\n            },\r\n            \"likesCount\": 20,\r\n            \"commentsCount\": 5,\r\n            \"author\": {\r\n                \"id\": \"author_id_1\",\r\n                \"githubId\": \"ghid\",\r\n                \"beheshtiId\": \"bid\",\r\n                \"firstName\": \"firstName\",\r\n                \"lastName\": \"lastName\",\r\n                \"avatar\": \"localhost/files/avatars/id.jpg\"\r\n            },\r\n            \"repoUrl\": \"https://github.com\",\r\n            \"repoTitle\": \"title\",\r\n            \"repoDescription\": \"desc\",\r\n            \"forksCount\": 10,\r\n            \"starsCount\": 20,\r\n            \"repPicture\": \"https://github.com/img.jpg\"\r\n        },  \r\n        {   \r\n            \"id\": \"post1\",\r\n            \"content\": \"#H1\\n\\r#H2\\n\\rNormalText\",\r\n            \"tags\": [\r\n                {\r\n                    \"id\": \"tag_id_1\",\r\n                    \"name\": \"name1\",\r\n                    \"color\": \"#ffffff\"\r\n                },\r\n                {\r\n                    \"id\": \"tag_id_2\",\r\n                    \"name\": \"name2\",\r\n                    \"color\": \"#ffffff\"\r\n                }\r\n            ],\r\n            \"file\": {\r\n                \"url\": \"localhost/files/file.zip\",\r\n                \"size\": \"10MB\",\r\n                \"name\": \"name\"\r\n            },\r\n            \"likesCount\": 20,\r\n            \"commentsCount\": 5,\r\n            \"author\": {\r\n                \"id\": \"author_id_1\",\r\n                \"githubId\": \"ghid\",\r\n                \"beheshtiId\": \"bid\",\r\n                \"firstName\": \"firstName\",\r\n                \"lastName\": \"lastName\",\r\n                \"avatar\": \"localhost/files/avatars/id.jpg\"\r\n            },\r\n            \"repoUrl\": \"https://github.com\",\r\n            \"repoTitle\": \"title\",\r\n            \"repoDescription\": \"desc\",\r\n            \"forksCount\": 10,\r\n            \"starsCount\": 20,\r\n            \"repPicture\": \"https://github.com/img.jpg\"\r\n        }\r\n    ]\r\n}"
+									"body": "{\n    \"posts\": [\n        {\n            \"id\": \"post1\",\n            \"content\": \"#H1\\n\\r#H2\\n\\rNormalText\",\n            \"tags\": [\n                {\n                    \"id\": \"tag_id_1\",\n                    \"name\": \"name1(persian)\",\n                    \"color\": \"#ffffff\"\n                }\n            ],\n            \"file\": {\n                \"url\": \"localhost/files/file.zip\",\n                \"size\": \"10MB\",\n                \"name\": \"name\"\n            },\n            \"likesCount\": 20,\n            \"commentsCount\": 5,\n            \"author\": {\n                \"id\": \"author_id_1\",\n                \"githubId\": \"ghid\",\n                \"beheshtiEmail\": \"bid\",\n                \"firstName\": \"firstName\",\n                \"lastName\": \"lastName\",\n                \"avatar\": \"localhost/files/avatars/id.jpg\"\n            },\n            \"repoUrl\": \"https://github.com\",\n            \"repoTitle\": \"title\",\n            \"repoDescription\": \"desc\",\n            \"forksCount\": 10,\n            \"starsCount\": 20,\n            \"repPicture\": \"https://github.com/img.jpg\"\n        }\n    ]\n}"
 								}
 							]
 						},
 						{
 							"name": "post",
 							"request": {
-								"method": "GET",
-								"header": [],
 								"url": {
-									"raw": "{{Host}}/v1/posts/:post_id?jwt={{JWT_TOKEN}}",
+									"raw": "{{Host}}/v1/posts/:post_id",
 									"host": [
 										"{{Host}}"
 									],
@@ -328,133 +298,117 @@
 										"posts",
 										":post_id"
 									],
-									"query": [
-										{
-											"key": "jwt",
-											"value": "{{JWT_TOKEN}}"
-										}
-									],
+									"query": [],
 									"variable": [
 										{
 											"key": "post_id",
 											"value": ""
 										}
 									]
-								}
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT_TOKEN}}",
+										"description": ""
+									}
+								],
+								"body": {},
+								"description": ""
 							},
 							"response": [
 								{
+									"id": "8f43a851-769a-4b41-9ded-23fab4c0e0da",
 									"name": "post",
 									"originalRequest": {
+										"url": "{{Host}}/v1/posts/<id>",
 										"method": "GET",
 										"header": [],
-										"url": {
-											"raw": "{{Host}}/v1/posts/<id>",
-											"host": [
-												"{{Host}}"
-											],
-											"path": [
-												"v1",
-												"posts",
-												"<id>"
-											]
-										}
+										"body": {}
 									},
+									"status": "OK",
+									"code": 200,
 									"_postman_previewlanguage": "json",
+									"_postman_previewtype": "html",
 									"header": null,
 									"cookie": [],
-									"body": "{\n    \"id\": \"post1\",\n    \"content\": \"#H1\\n\\r#H2\\n\\rNormalText\",\n    \"tags\": [\n        {\n            \"id\": \"tag_id_1\",\n            \"name\": \"name1\",\n            \"color\": \"#ffffff\"\n        },\n        {\n            \"id\": \"tag_id_2\",\n            \"name\": \"name2\",\n            \"color\": \"#ffffff\"\n        }\n    ],\n    \"file\": {\n        \"url\": \"localhost/files/file.zip\",\n        \"size\": \"10MB\",\n        \"name\": \"name\"\n    },\n    \"likesCount\": 20,\n    \"commentsCount\": 5,\n    \"author\": {\n        \"id\": \"author_id_1\",\n        \"githubId\": \"ghid\",\n        \"beheshtiId\": \"bid\",\n        \"firstName\": \"firstName\",\n        \"lastName\": \"lastName\",\n        \"avatar\": \"localhost/files/avatars/id.jpg\"\n    },\n    \"repoUrl\": \"https://github.com\",\n    \"repoTitle\": \"title\",\n    \"repoDescription\": \"desc\",\n    \"forksCount\": 10,\n    \"starsCount\": 20,\n    \"repPicture\": \"https://github.com/img.jpg\"\n}"
+									"body": "{\n    \"id\": \"post1\",\n    \"content\": \"#H1\\n\\r#H2\\n\\rNormalText\",\n    \"tags\": [\n        {\n            \"id\": \"tag_id_1\",\n            \"name\": \"name1(persion)\",\n            \"color\": \"#ffffff\"\n        }\n    ],\n    \"file\": {\n        \"url\": \"localhost/files/file.zip\",\n        \"size\": \"10MB\",\n        \"name\": \"name\"\n    },\n    \"likesCount\": 20,\n    \"commentsCount\": 5,\n    \"author\": {\n        \"id\": \"author_id_1\",\n        \"githubId\": \"ghid\",\n        \"beheshtiId\": \"bid\",\n        \"firstName\": \"firstName\",\n        \"lastName\": \"lastName\",\n        \"avatar\": \"localhost/files/avatars/id.jpg\"\n    },\n    \"repoUrl\": \"https://github.com\",\n    \"repoTitle\": \"title\",\n    \"repoDescription\": \"desc\",\n    \"forksCount\": 10,\n    \"starsCount\": 20,\n    \"repPicture\": \"https://github.com/img.jpg\",\n    \"comments\": [\n    \t{\n    \t\t\"id\": \"cmtId1\",\n\t\t\t\"user\": {\n    \t\t\t\"id\": \"author_id_2\",\n\t\t        \"githubId\": \"ghid\",\n        \t\t\"beheshtiId\": \"bid\",\n        \t\t\"firstName\": \"firstName\",\n        \t\t\"lastName\": \"lastName\",\n        \t\t\"avatar\": \"localhost/files/avatars/id.jpg\"\n    \t\t},\n\t\t\t\"content\": \"string\"\n    \t}\n    ]\n}"
 								}
 							]
 						},
 						{
 							"name": "post",
 							"request": {
+								"url": "{{Host}}/v1/posts",
 								"method": "POST",
 								"header": [
 									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT_TOKEN}}",
+										"description": ""
+									},
+									{
 										"key": "Content-Type",
 										"value": "application/json",
-										"type": "text"
+										"description": ""
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"content\" : \"#H1\\n\\r#H2\\n\\rNormalssssssssssssssssText\",\r\n    \"tags\" : [\r\n        \"61eeb13c918f645f4cd0ca8e\",\r\n        \"61eeb13c918f645f4cd0ca9a\"\r\n    ]\r\n}"
+									"raw": "{\r\n    \"content\" : \"#H1\\n\\r#H2\\n\\rNormalssssssssssssssssText\",\r\n    \"tags\" : [\r\n        \"tagId1\"\r\n    ],\r\n    \"repoUrl\": \"githubUrl(optional)\",\r\n    \"file\": \"file url (optional)\"\r\n}"
 								},
-								"url": {
-									"raw": "{{Host}}/v1/posts?jwt={{JWT_TOKEN}}",
-									"host": [
-										"{{Host}}"
-									],
-									"path": [
-										"v1",
-										"posts"
-									],
-									"query": [
-										{
-											"key": "jwt",
-											"value": "{{JWT_TOKEN}}"
-										}
-									]
-								}
+								"description": ""
 							},
 							"response": []
 						},
 						{
 							"name": "post",
 							"request": {
+								"url": {
+									"raw": "{{Host}}/v1/posts/:post_id",
+									"host": [
+										"{{Host}}"
+									],
+									"path": [
+										"v1",
+										"posts",
+										":post_id"
+									],
+									"query": [],
+									"variable": [
+										{
+											"key": "post_id",
+											"value": ""
+										}
+									]
+								},
 								"method": "PUT",
 								"header": [
 									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT_TOKEN}}",
+										"description": ""
+									},
+									{
 										"key": "Content-Type",
-										"type": "text",
-										"value": "application/json"
+										"value": "application/json",
+										"description": ""
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"Created_At\" : \"1639089858\",\r\n    \"Content\" : \"#H1\\n\\r#H2\\n\\rNormalText\"\r\n}"
+									"raw": "{\r\n    \"content\" : \"#H1\\n\\r#H2\\n\\rNormalssssssssssssssssText\",\r\n    \"tags\" : [\r\n        \"tagId1\"\r\n    ],\r\n    \"repoUrl\": \"githubUrl(optional)\",\r\n    \"file\": \"file url (optional)\"\r\n}"
 								},
-								"url": {
-									"raw": "{{Host}}/v1/posts/:post_id?jwt={{JWT_TOKEN}}",
-									"host": [
-										"{{Host}}"
-									],
-									"path": [
-										"v1",
-										"posts",
-										":post_id"
-									],
-									"query": [
-										{
-											"key": "jwt",
-											"value": "{{JWT_TOKEN}}"
-										}
-									],
-									"variable": [
-										{
-											"key": "post_id",
-											"value": ""
-										}
-									]
-								}
+								"description": ""
 							},
 							"response": []
 						},
 						{
 							"name": "post",
 							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									}
-								],
 								"url": {
-									"raw": "{{Host}}/v1/posts/:post_id?jwt={{JWT_TOKEN}}",
+									"raw": "{{Host}}/v1/posts/:post_id",
 									"host": [
 										"{{Host}}"
 									],
@@ -463,66 +417,39 @@
 										"posts",
 										":post_id"
 									],
-									"query": [
-										{
-											"key": "jwt",
-											"value": "{{JWT_TOKEN}}"
-										}
-									],
+									"query": [],
 									"variable": [
 										{
 											"key": "post_id",
 											"value": ""
 										}
 									]
-								}
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT_TOKEN}}",
+										"description": ""
+									}
+								],
+								"body": {},
+								"description": ""
 							},
 							"response": []
 						}
-					]
+					],
+					"_postman_isSubFolder": true
 				},
 				{
 					"name": "Comment",
+					"description": "",
 					"item": [
 						{
 							"name": "comment",
 							"request": {
-								"method": "GET",
-								"header": [],
 								"url": {
-									"raw": "{{Host}}/v1/posts/:post_id/comments?jwt={{JWT_TOKEN}}",
-									"host": [
-										"{{Host}}"
-									],
-									"path": [
-										"v1",
-										"posts",
-										":post_id",
-										"comments"
-									],
-									"query": [
-										{
-											"key": "jwt",
-											"value": "{{JWT_TOKEN}}"
-										}
-									],
-									"variable": [
-										{
-											"key": "post_id",
-											"value": ""
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "comment",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{Host}}/v1/posts/:post_id/comments/:comment_id?jwt={{JWT_TOKEN}}",
+									"raw": "{{Host}}/v1/posts/:post_id/comments/:comment_id",
 									"host": [
 										"{{Host}}"
 									],
@@ -533,12 +460,7 @@
 										"comments",
 										":comment_id"
 									],
-									"query": [
-										{
-											"key": "jwt",
-											"value": "{{JWT_TOKEN}}"
-										}
-									],
+									"query": [],
 									"variable": [
 										{
 											"key": "post_id",
@@ -549,26 +471,25 @@
 											"value": ""
 										}
 									]
-								}
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT_TOKEN}}",
+										"description": ""
+									}
+								],
+								"body": {},
+								"description": ""
 							},
 							"response": []
 						},
 						{
 							"name": "comment",
 							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"content\" : \"This is a comment\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
-									"raw": "{{Host}}/v1/posts/:post_id/comments?jwt={{JWT_TOKEN}}",
+									"raw": "{{Host}}/v1/posts/:post_id/comments",
 									"host": [
 										"{{Host}}"
 									],
@@ -578,34 +499,42 @@
 										":post_id",
 										"comments"
 									],
-									"query": [
-										{
-											"key": "jwt",
-											"value": "{{JWT_TOKEN}}"
-										}
-									],
+									"query": [],
 									"variable": [
 										{
 											"key": "post_id",
 											"value": ""
 										}
 									]
-								}
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT_TOKEN}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"content\" : \"This is a comment\"\r\n}"
+								},
+								"description": ""
 							},
 							"response": []
 						}
-					]
+					],
+					"_postman_isSubFolder": true
 				},
 				{
 					"name": "Like",
+					"description": "",
 					"item": [
 						{
 							"name": "like",
 							"request": {
-								"method": "POST",
-								"header": [],
 								"url": {
-									"raw": "{{Host}}/v1/posts/:post_id/like?jwt={{JWT_TOKEN}}",
+									"raw": "{{Host}}/v1/posts/:post_id/like",
 									"host": [
 										"{{Host}}"
 									],
@@ -615,29 +544,32 @@
 										":post_id",
 										"like"
 									],
-									"query": [
-										{
-											"key": "jwt",
-											"value": "{{JWT_TOKEN}}"
-										}
-									],
+									"query": [],
 									"variable": [
 										{
 											"key": "post_id",
 											"value": ""
 										}
 									]
-								}
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT_TOKEN}}",
+										"description": ""
+									}
+								],
+								"body": {},
+								"description": ""
 							},
 							"response": []
 						},
 						{
 							"name": "unlike",
 							"request": {
-								"method": "POST",
-								"header": [],
 								"url": {
-									"raw": "{{Host}}/v1/posts/:post_id/unlike?jwt={{JWT_TOKEN}}",
+									"raw": "{{Host}}/v1/posts/:post_id/unlike",
 									"host": [
 										"{{Host}}"
 									],
@@ -647,49 +579,39 @@
 										":post_id",
 										"unlike"
 									],
-									"query": [
-										{
-											"key": "jwt",
-											"value": "{{JWT_TOKEN}}"
-										}
-									],
+									"query": [],
 									"variable": [
 										{
 											"key": "post_id",
 											"value": ""
 										}
 									]
-								}
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT_TOKEN}}",
+										"description": ""
+									}
+								],
+								"body": {},
+								"description": ""
 							},
 							"response": []
 						}
-					]
+					],
+					"_postman_isSubFolder": true
 				}
 			]
 		},
 		{
 			"name": "Files",
+			"description": "",
 			"item": [
 				{
 					"name": "file",
 					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "enctype",
-									"value": "multipart/form-data",
-									"type": "text"
-								},
-								{
-									"key": "file",
-									"type": "file",
-									"src": "/C:/Users/Amin/Downloads/Arshad1401-ES.pdf"
-								}
-							]
-						},
 						"url": {
 							"raw": "{{Host}}/v1/files?jwt={{JWT_TOKEN}}",
 							"host": [
@@ -704,16 +626,34 @@
 									"key": "jwt",
 									"value": "{{JWT_TOKEN}}"
 								}
+							],
+							"variable": []
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "enctype",
+									"value": "multipart/form-data",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Amin/Downloads/Arshad1401-ES.pdf",
+									"value": ""
+								}
 							]
-						}
+						},
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "file",
 					"request": {
-						"method": "GET",
-						"header": [],
 						"url": {
 							"raw": "{{Host}}/v1/files/:file_id?jwt={{JWT_TOKEN}}",
 							"host": [
@@ -736,15 +676,20 @@
 									"value": ""
 								}
 							]
-						}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "file download",
 					"request": {
-						"method": "GET",
-						"header": [],
 						"url": {
 							"raw": "{{Host}}/v1/files/:file_id/download?jwt={{JWT_TOKEN}}",
 							"host": [
@@ -768,30 +713,20 @@
 									"value": ""
 								}
 							]
-						}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "avatar",
 					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "enctype",
-									"value": "multipart/form-data",
-									"type": "text"
-								},
-								{
-									"key": "file",
-									"type": "file",
-									"src": "/C:/Users/Amin/Downloads/Arshad1401-ES.pdf"
-								}
-							]
-						},
 						"url": {
 							"raw": "{{Host}}/v1/avatar?jwt={{JWT_TOKEN}}",
 							"host": [
@@ -806,16 +741,34 @@
 									"key": "jwt",
 									"value": "{{JWT_TOKEN}}"
 								}
+							],
+							"variable": []
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "enctype",
+									"value": "multipart/form-data",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Amin/Downloads/Arshad1401-ES.pdf",
+									"value": ""
+								}
 							]
-						}
+						},
+						"description": ""
 					},
 					"response": []
 				},
 				{
 					"name": "avatar",
 					"request": {
-						"method": "GET",
-						"header": [],
 						"url": {
 							"raw": "{{Host}}/v1/avatar/:avatar_id?jwt={{JWT_TOKEN}}",
 							"host": [
@@ -838,7 +791,14 @@
 									"value": ""
 								}
 							]
-						}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				}
@@ -846,109 +806,85 @@
 		},
 		{
 			"name": "Tags",
+			"description": "",
 			"item": [
 				{
 					"name": "tag",
 					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{Host}}/v1/tag?jwt={{JWT_TOKEN}}",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"v1",
-								"tag"
-							],
-							"query": [
-								{
-									"key": "jwt",
-									"value": "{{JWT_TOKEN}}"
-								}
-							]
-						}
+						"url": "{{Host}}/v1/tag",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
 					},
 					"response": []
 				},
 				{
-					"name": "tag",
+					"name": "categories",
 					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{Host}}/v1/tag?jwt={{JWT_TOKEN}}",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"v1",
-								"tag"
-							],
-							"query": [
-								{
-									"key": "jwt",
-									"value": "{{JWT_TOKEN}}"
-								}
-							]
-						}
+						"url": "{{Host}}/v1/categories",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
 					},
-					"response": []
+					"response": [
+						{
+							"id": "d46f034d-d5d0-403a-b5f1-9205147bc900",
+							"name": "{categories",
+							"originalRequest": {
+								"url": "{{Host}}/v1/categories",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT_TOKEN}}",
+										"type": "text",
+										"description": ""
+									}
+								],
+								"body": {}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "parsed",
+							"header": [],
+							"cookie": [],
+							"responseTime": 0,
+							"body": "{\n\t\"categories\": [\n\t\t{\n\t\t\t\"id\": \"cat id 1\",\n\t\t\t\"title\": \"persian cat title\",\n\t\t\t\"tags\": [\n\t\t\t\t{\n\t\t\t\t\t\"id\": \"tag id 1\",\n\t\t\t\t\t\"name\": \"persian tag name\",\n\t\t\t\t\t\"color\": \"#ffffff\"\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t]\n}"
+						}
+					]
 				},
 				{
 					"name": "category",
 					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{Host}}/v1/category?jwt={{JWT_TOKEN}}",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"v1",
-								"category"
-							],
-							"query": [
-								{
-									"key": "jwt",
-									"value": "{{JWT_TOKEN}}"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "category",
-					"request": {
+						"url": "{{Host}}/v1/category",
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\" : \"Term\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\r\n    \"title\" : \"Term\"\r\n}"
 						},
-						"url": {
-							"raw": "{{Host}}/v1/category?jwt={{JWT_TOKEN}}",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"v1",
-								"category"
-							],
-							"query": [
-								{
-									"key": "jwt",
-									"value": "{{JWT_TOKEN}}"
-								}
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				}
@@ -956,51 +892,37 @@
 		},
 		{
 			"name": "Rest",
+			"description": "",
 			"item": [
 				{
 					"name": "Open Graph",
 					"request": {
+						"url": "{{Host}}/v1/og/jaywink/python-opengraph",
 						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{Host}}/v1/og/jaywink/python-opengraph?jwt={{JWT_TOKEN}}",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"v1",
-								"og",
-								"jaywink",
-								"python-opengraph"
-							],
-							"query": [
-								{
-									"key": "jwt",
-									"value": "{{JWT_TOKEN}}"
-								}
-							]
-						}
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT_TOKEN}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
 					},
 					"response": [
 						{
+							"id": "00e70d89-d55d-41dc-b9fe-4168d714fe4a",
 							"name": "OG",
 							"originalRequest": {
+								"url": "{{Host}}/v1/og/<user>/<repo>",
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{Host}}/v1/og/<user>/<repo>",
-									"host": [
-										"{{Host}}"
-									],
-									"path": [
-										"v1",
-										"og",
-										"<user>",
-										"<repo>"
-									]
-								}
+								"body": {}
 							},
-							"_postman_previewlanguage": null,
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"_postman_previewtype": "html",
 							"header": null,
 							"cookie": [],
 							"body": "{\r\n    \"openGraph\": {\r\n        \"image\": \"https://opengraph.githubassets.com/ba0f79732f34abb4a70124e7fc13126f3ea76221ee5ff1e99f85f6e68047f72f/jaywink/python-opengraph\",\r\n        \"image:alt\": \"Python module to parse Open Graph metadata on web pages - GitHub - jaywink/python-opengraph: Python module to parse Open Graph metadata on web pages\",\r\n        \"image:width\": \"1200\",\r\n        \"image:height\": \"600\",\r\n        \"site_name\": \"GitHub\",\r\n        \"type\": \"object\",\r\n        \"title\": \"GitHub - jaywink/python-opengraph: Python module to parse Open Graph metadata on web pages\",\r\n        \"url\": \"https://github.com/jaywink/python-opengraph\",\r\n        \"description\": \"Python module to parse Open Graph metadata on web pages - GitHub - jaywink/python-opengraph: Python module to parse Open Graph metadata on web pages\"\r\n    }\r\n}"
@@ -1010,72 +932,36 @@
 				{
 					"name": "Terms of Use",
 					"request": {
+						"url": "{{Host}}/v1/terms",
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{Host}}/v1/terms",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"v1",
-								"terms"
-							]
-						}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": [
 						{
-							"name": "OG",
+							"id": "a3bf0663-242b-427a-8a45-536da24d83e9",
+							"name": "TaC",
 							"originalRequest": {
+								"url": "{{Host}}/v1/terms",
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{Host}}/v1/og/<user>/<repo>",
-									"host": [
-										"{{Host}}"
-									],
-									"path": [
-										"v1",
-										"og",
-										"<user>",
-										"<repo>"
-									]
-								}
+								"body": {}
 							},
-							"_postman_previewlanguage": null,
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "html",
 							"header": null,
 							"cookie": [],
-							"body": "{\r\n  openGraph: {\r\n    image: 'https://avatars.githubusercontent.com/u/39955233?s=400&v=4',\r\n    alt: 'Contribute to madsams/bachelor-front development by creating an account on GitHub.',\r\n    title: 'madsams/bachelor-front',\r\n    url: 'https://github.com/madsams/bachelor-front/',\r\n    description: 'Contribute to madsams/bachelor-front development by creating an account on GitHub.'\r\n  }\r\n}"
+							"body": "{\n    \"content\": \"TaC\",\n    \"last_modified\": 1642946517\n}"
 						}
 					]
 				}
 			]
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "Host",
-			"value": "http://localhost:5000/api"
 		}
 	]
 }
