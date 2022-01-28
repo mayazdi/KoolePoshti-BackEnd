@@ -153,8 +153,13 @@ class PostsApi(Resource):
             posts = Post.objects(query)[start_index:end_index].to_json()
             # If has_next, ... is needed, get it from paginate file
         else:
-            posts = Post.objects().to_json()
-        return Response(posts, mimetype="application/json", status=200)
+            start_index = 0
+            end_index = 20
+        posts = get_posts(Post.objects(query)[start_index:end_index])
+        return {
+            "posts" : posts,
+            "hasNext" : len(Post.objects(query)[end_index:end_index+1]) > 0
+        }, 200
     
     def post(self):        
         user_id = get_user_id(get_jwt_identity())
