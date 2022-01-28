@@ -159,7 +159,10 @@ class PostsApi(Resource):
     def post(self):        
         user_id = get_user_id(get_jwt_identity())
         body = request.get_json()
-        body['user'] = user_id
+        body['author'] = user_id
+        if 'repoUrl' in body:
+            if not re.match(r"^(http(s)?:\/\/)?(www.)?github\.com\/([\w\-\.]+)\/([\w\-\.]+)$", body['repoUrl']):
+                return {"Error": "RepoUrl must be in github.com/user/repo format"}, 400
         post = Post(**body).save()
         id = post.id
         return {'id': str(id)}, 201
