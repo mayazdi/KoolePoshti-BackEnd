@@ -5,4 +5,5 @@ def generate_otp():
     OTP = ""
     for i in range(5):
         OTP += digits[math.floor(random.random() * 10)]
+    print(OTP)
     return OTP
