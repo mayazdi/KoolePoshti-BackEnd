@@ -95,8 +95,10 @@ class ForgotApi(Resource):
         if 'beheshtiEmail' in body:
             user = User.objects(Q(beheshtiEmail=body['beheshtiEmail']))
             if user:
-                user[1].update(forgotten_password=True)
+                user = user[0]
+                user.update(forgotten_password=True, otp=generate_otp())
                 send_otp_email(user.beheshtiEmail, user.firstName + ' ' + user.lastName, user.otp)
+                return {"msg": "Activation email has been sent"}, 200
             else:
                 return {"Error": "User not found"}, 406
         else:
@@ -124,7 +126,6 @@ class ActivateApi(Resource):
                     user.otp = generate_otp()
                     user.otp_valid_date = datetime.datetime.utcnow() + datetime.timedelta(days=1)
                     user.update()
-                    print(user.otp)
                     send_otp_email(user.beheshtiEmail, user.firstName + ' ' + user.lastName, user.otp)
                     return {"Error": "OTP has been expired!"}, 400
             else:
@@ -135,13 +136,22 @@ class ActivateApi(Resource):
 
 class ResetPasswordApi(Resource):
     def post(self):
-        # TODO: check for OTP. or if user is loggedin
+        # TODO: check for JWT. or if user is loggedin
         body = request.get_json()
-        if 'beheshtiEmail' in body and 'password' in body:
+        if 'beheshtiEmail' in body and 'password' and 'otp' in body:
             user = User.objects(Q(beheshtiEmail=body['beheshtiEmail']))
-            user.update(password=hashlib.md5("{}{}".format(body['password'], config_map['password_salt']).encode()).hexdigest())
-            user.update(forgotten_password=False)
-            access_token = create_access_token(identity=body['beheshtiEmail'])
-            return jsonify(accessToken=access_token)
+            if user:
+                # TODO: Check if user has forgotten password
+                user = user[0]
+                if user.otp == body['otp']:
+                    user.update(password=hashlib.md5("{}{}".format(body['password'], config_map['password_salt']).encode()).hexdigest())
+                    user.update(forgotten_password=False)
+                    access_token = create_access_token(identity=body['beheshtiEmail'])
+                    return jsonify(accessToken=access_token)
+                else:
+                    print(user.otp)
+                    return {'error': 'OTP doesnt match'}, 400
+            else:
+                return {'error': 'User not found'}, 400
         else:
-            return {'error': 'email or password not provided'}, 400
+            return {'error': 'email, password or otp not provided'}, 400
