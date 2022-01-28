@@ -4,6 +4,94 @@ from flask_restful import Resource
 from mongoengine.queryset.visitor import Q
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from utils.user import get_user_id, is_post_author
+from utils.github import get_repository_information
+import re
+
+#  ---------------------- UTIL FUNCTIONS ----------------------
+def get_user(user):
+    return {
+        "id": str(user.id),
+        "githubId": user.githubId,
+        "beheshtiEmail": user.beheshtiEmail,
+        "firstName": user.firstName,
+        "lastName": user.lastName,
+        "avatar": user.avatar
+    }
+
+def get_comment(comment):
+    return {
+        "id" : str(comment.id),
+        "content" : comment.content,
+        "author" : get_user(comment.author),
+    }
+
+def get_comments(post_id):
+    comments = Comment.objects(Q(post=post_id))
+    cmnts = []
+    for comment in comments:
+        cmnts.append(get_comment(comment))
+    return cmnts
+
+
+def get_tag(tag):
+    return {
+        "id" : str(tag.id),
+        "name" : tag.name,
+        "color" : tag.color
+    }
+
+def get_tags(tags):
+    tgs = []
+    for tag in tags:
+        tgs.append(get_tag(tag))
+    return tgs
+
+def get_file(f):
+    return {
+        "id" : str(f.id),
+        "name" : f.name,
+        "size" : f.size
+    }
+
+def get_files(files):
+    fls = []
+    for f in files:
+        fls.append(get_file(f))
+    return fls
+
+def get_ghpost(post):
+    url = {"repoUrl" : post['repoUrl']}
+    ghpost_info = get_repository_information(post['repoUrl'])
+    post = get_post(post)
+    post = {**post , **ghpost_info, **url}
+    return post
+
+def get_comments_count_from_post_id(post_id):
+    return Comment.objects(Q(post=post_id)).count()
+
+def get_post(post):
+    post = {
+        "id" : str(post.id),
+        "createdAt" : post.createdAt.strftime('%s'),
+        "content" : post.content,
+        "author" : get_user(post.author),
+        "tags" : get_tags(post.tags),
+        "files" : get_files(post.files),
+        "comments" : get_comments_count_from_post_id(str(post.id)),
+        "likes" : len(post.likes),
+    }
+    return post
+
+def get_posts(posts):
+    psts = []
+    for post in posts:
+        if 'repoUrl' in post:
+            psts.append(get_ghpost(post))
+        else:
+            psts.append(get_post(post))
+    return psts
+
+#  ---------------------- UTIL FUNCTIONS ----------------------
 
 class PostApi(Resource):
     decorators = [jwt_required()]
