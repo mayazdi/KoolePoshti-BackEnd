@@ -44,8 +44,7 @@ class Post(db.Document):
     # _id = db.IntField(required=True, unique=True)
     active = db.BooleanField(required=True, default=True)
     createdAt = db.DateTimeField(required=True, default=datetime.datetime.utcnow)
-    # Change this to author
-    user = db.ReferenceField(User, required=True)
+    author = db.ReferenceField(User, required=True)
     content = db.StringField(required=True)
     likes = db.ListField(db.ReferenceField(User))
     # TODO: change file to files
@@ -56,8 +55,7 @@ class Post(db.Document):
 
 class Comment(db.Document):
     content = db.StringField(required=True)
-    # Change this to author
-    user = db.ReferenceField(User, required=True)
+    author = db.ReferenceField(User, required=True)
     post = db.ReferenceField(Post, required=True)
 
 
