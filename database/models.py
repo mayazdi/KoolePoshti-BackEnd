@@ -37,15 +37,14 @@ class Tag(db.Document):
 
 
 class Post(db.Document):
-    # _id = db.IntField(required=True, unique=True)
     active = db.BooleanField(required=True, default=True)
     createdAt = db.DateTimeField(required=True, default=datetime.datetime.utcnow)
     author = db.ReferenceField(User, required=True)
     content = db.StringField(required=True)
     likes = db.ListField(db.ReferenceField(User))
-    # TODO: change file to files
-    file = db.ListField(db.ReferenceField(File))
+    files = db.ListField(db.ReferenceField(File))
     tags = db.ListField(db.ReferenceField(Tag))
+    repoUrl = db.StringField()
     meta = {'allow_inheritance': True}
 
 
