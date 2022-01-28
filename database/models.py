@@ -58,7 +58,7 @@ class Comment(db.Document):
 class GHPost(Post):
     forks = db.IntField(required=True)
     stars = db.IntField(required=True)
-    url = db.IntField(required=True)
+    url = db.StringField(required=True)
     metaPicture = db.StringField(required=True)
     metaTitle = db.StringField(required=True)
     metaDescription = db.StringField()
