@@ -10,13 +10,16 @@ class LikeApi(Resource):
 
     def post(self, id):
         user_id = get_user_id(get_jwt_identity())
-        post = Post.objects.get(id=id)
-        for u in post.likes:
-            if user_id == u.id:
-                return {'msg': 'already liked'}, 200
-        post.likes.append(user_id)
-        post.save()
-        return {'msg': 'post liked'}, 201
+        post = Post.objects(Q(id=id))
+        if post:
+            for u in post.likes:
+                if user_id == u.id:
+                    return {'msg': 'already liked'}, 200
+            post.likes.append(user_id)
+            post.save()
+            return {'msg': 'post liked'}, 201
+        else:
+            return {'Error': 'Post not found'}, 404
 
 
 class UnLikeApi(Resource):
@@ -24,17 +27,20 @@ class UnLikeApi(Resource):
     
     def post(self, id):    
         user_id = get_user_id(get_jwt_identity())
-        post = Post.objects.get(id=id)
+        post = Post.objects(Q(id=id))
         new_likes = []
         user_liked = False
-        for u in post.likes:
-            if user_id != u.id:
-                new_likes.append(u)
+        if post:
+            for u in post.likes:
+                if user_id != u.id:
+                    new_likes.append(u)
+                else:
+                    user_liked = True
+            if user_liked:
+                post.likes = new_likes
+                post.save()
+                return {'msg': 'post unliked'}, 201
             else:
-                user_liked = True
-        if user_liked:
-            post.likes = new_likes
-            post.save()
-            return {'msg': 'post unliked'}, 201
+                return {'msg': 'post was not liked'}, 200
         else:
-            return {'msg': 'post was not liked'}, 200
+            return {'Error': 'Post not found'}, 404
