@@ -36,10 +36,6 @@ class Tag(db.Document):
     category = db.ReferenceField(Category)
 
 
-class Like(db.Document):
-    pass
-
-
 class Post(db.Document):
     # _id = db.IntField(required=True, unique=True)
     active = db.BooleanField(required=True, default=True)
