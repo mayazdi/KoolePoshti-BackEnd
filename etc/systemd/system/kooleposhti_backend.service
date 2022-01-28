@@ -1,0 +1,10 @@
+[Unit]
+Description=uWSGI instance to serve Kooleposhti Backend
+After=network.target
+
+[Service]
+User=ubuntu
+Group=root
+WorkingDirectory=/home/ubuntu/workspace/KoolePoshti-BackEnd
+Environment="PATH=/home/ubuntu/workspace/KoolePoshti-BackEnd/venv/bin"
+ExecStart=/home/ubuntu/.local/bin/uwsgi --ini kooleposhti.ini

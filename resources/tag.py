@@ -8,18 +8,6 @@ import json
 class TagApi(Resource):
     decorators = [jwt_required()]
     
-    def get(self):
-        categories = Category.objects()
-        category_ids = [str(c.id) for c in categories]
-        print(category_ids)
-        tags = {}
-
-        i = 0
-        for _id in category_ids:
-            tags[categories[i].title] = json.loads(Tag.objects.filter(category=_id).to_json())
-            i+=1
-        return tags, 200
-    
     def post(self):
         body = request.get_json()
         """ import hashlib
@@ -31,12 +19,36 @@ class TagApi(Resource):
         return {'id': str(id)}, 201
 
 
+def get_tag(tag):
+    return {
+        "id" : str(tag.id),
+        "name" : tag.name,
+        "color" : tag.color
+    }
+
+def get_tags(tags):
+    tgs = []
+    for tag in tags:
+        tgs.append(get_tag(tag))
+    return tgs
+
+
 class CategoryApi(Resource):
     decorators = [jwt_required()]
 
     def get(self):
-        categories = Category.objects().to_json()
-        return Response(categories, mimetype="application/json", status=200)
+        categories = Category.objects()
+        category_list = []
+        for cat in categories:
+            category_list.append({
+                "id" : str(cat.id),
+                "tags" : get_tags(Tag.objects.filter(category=str(cat.id))),
+                "title" : cat.title,
+            })
+        
+        categories = {"categories" : category_list}
+        return category_list, 200
+    
     
     def post(self):
         body = request.get_json()
