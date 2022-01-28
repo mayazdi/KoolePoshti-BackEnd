@@ -1,5 +1,5 @@
 from flask import Response, request
-from database.models import Post
+from database.models import Post, User, Comment
 from flask_restful import Resource
 from mongoengine.queryset.visitor import Q
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -97,14 +97,23 @@ class PostApi(Resource):
     decorators = [jwt_required()]
 
     def get(self, id):
-        post = Post.objects(Q(id=id) | Q(active=True)).to_json()
+        post = Post.objects(Q(id=id) | Q(active=True))
         # post = Post.objects.get(id=id).to_json()
         if post:
-            status_code = 200
+            post = post[0]
+            if post.repoUrl:
+                post = get_ghpost(post)
+            else:
+                post = get_post(post)
+            comments = {"comments" : get_comments(id)}
+            post = {**post, **comments}
+            print(post)
+            # status_code = 200
         else:
-            status_code = 404
-        return Response(post, mimetype='application/json', status=status_code)
-    
+            return {"Error" : "Item not found"}, 404
+        return post, 200
+        # return Response(post, mimetype='application/json', status=status_code)
+        
     def put(self, id):
         try:
             post = Post.objects.with_id(id)
@@ -144,14 +153,12 @@ class PostsApi(Resource):
         query = Q(active=True)
         for t in tags:
             query = query & Q(tags=t)
-        print(query)
+        # print(query)
         if page and limit:
             page = (int) (page)
             limit = (int) (limit)
             start_index = (page - 1) * limit
             end_index = page * limit
-            posts = Post.objects(query)[start_index:end_index].to_json()
-            # If has_next, ... is needed, get it from paginate file
         else:
             start_index = 0
             end_index = 20
@@ -161,7 +168,7 @@ class PostsApi(Resource):
             "hasNext" : len(Post.objects(query)[end_index:end_index+1]) > 0
         }, 200
     
-    def post(self):        
+    def post(self): 
         user_id = get_user_id(get_jwt_identity())
         body = request.get_json()
         body['author'] = user_id
