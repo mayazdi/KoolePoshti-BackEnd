@@ -19,7 +19,7 @@ class CommentsApi(Resource):
         comment = Comment(**body)
         post = Post.objects.get(id=id)
         comment.post = post
-        comment.user = get_user_id(get_jwt_identity())
+        comment.author = get_user_id(get_jwt_identity())
         comment.save()
         comment_id = comment.id
         return {'id': str(comment_id), 'post_id': id}, 201
