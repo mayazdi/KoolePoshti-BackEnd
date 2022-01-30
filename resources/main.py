@@ -19,7 +19,7 @@ class TermsApi(Resource):
         with open(terms_file_path, "r") as f:
             return {
                 "content": f.read(),
-                "last_modified" : floor(os.path.getmtime(terms_file_path))
+                "lastModified" : floor(os.path.getmtime(terms_file_path))
                 }, 200
             # return Response({"content": f.read()}, status=200)
 

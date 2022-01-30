@@ -49,7 +49,7 @@ def get_repository_information(repo_address):
     try:
         repository = g.get_repo(repo_address.split('github.com/')[1])
         repo_info = {
-            'readme_content' : deocode_contentfile(get_readme_file(repository)),
+            'readmeContent' : deocode_contentfile(get_readme_file(repository)),
             'stars' : repository.stargazers_count,
             'forks' : repository.forks_count,
             'topics' : repository.get_topics(),
