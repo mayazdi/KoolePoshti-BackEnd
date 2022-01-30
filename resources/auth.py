@@ -18,7 +18,6 @@ class SigninApi(Resource):
             _password = hashlib.md5("{}{}".format(body['password'], config_map['password_salt']).encode()).hexdigest()
         except Exception:
             return {'error': 'wrong format'}, 400
-        print("pedasag")
         # user = User.objects.get(beheshti_email=_beheshti_email)
         user = User.objects(Q(beheshtiEmail=_beheshti_email) & Q(password=_password))
         if user:
