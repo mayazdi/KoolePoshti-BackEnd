@@ -12,6 +12,7 @@ class LikeApi(Resource):
         user_id = get_user_id(get_jwt_identity())
         post = Post.objects(Q(id=id))
         if post:
+            post = post[0]
             for u in post.likes:
                 if user_id == u.id:
                     return {'msg': 'already liked'}, 200
@@ -31,6 +32,7 @@ class UnLikeApi(Resource):
         new_likes = []
         user_liked = False
         if post:
+            post = post[0]
             for u in post.likes:
                 if user_id != u.id:
                     new_likes.append(u)
