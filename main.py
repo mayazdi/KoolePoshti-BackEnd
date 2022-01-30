@@ -7,6 +7,7 @@ from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_requir
 from database.db import initialize_db
 from database.utils import clean_db, repopulater_tags
 import argparse
+from datetime import timedelta
 
 app = Flask(__name__)
 CORS(app, support_credentials=True)
@@ -18,8 +19,11 @@ app.config['MONGODB_SETTINGS'] = {
 }
 app.config["JWT_SECRET_KEY"] = config_map['jwt_secret_key']
 app.config['JWT_TOKEN_LOCATION'] = ['headers', 'query_string']
+app.config['PROPAGATE_EXCEPTIONS'] = True
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 
 jwt = JWTManager(app)
+# jwt._set_error_handler_callbacks(api)
 
 initialize_db(app)
 initialize_routes(api, config_map['routing_prefix'])
