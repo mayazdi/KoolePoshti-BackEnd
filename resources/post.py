@@ -34,11 +34,16 @@ def get_comments(post_id):
 
 
 def get_tag(tag):
-    return {
-        "id" : str(tag.id),
-        "name" : tag.name,
-        "color" : tag.color
-    }
+    try:
+        return {
+            "id" : str(tag.id),
+            "name" : tag.name,
+            "color" : tag.color
+        }
+    except:
+        return {
+            "error" : "Invalid tag"
+        }
 
 def get_tags(tags):
     tgs = []
@@ -47,11 +52,16 @@ def get_tags(tags):
     return tgs
 
 def get_file(f):
-    return {
-        "id" : str(f.id),
-        "name" : f.name,
-        "size" : f.size
-    }
+    try:
+        return {
+            "id" : str(f.id),
+            "name" : f.name,
+            "size" : f.size
+        }
+    except:
+        return {
+            "error" : "Invalid tag"
+        }
 
 def get_files(files):
     fls = []
@@ -70,17 +80,21 @@ def get_comments_count_from_post_id(post_id):
     return Comment.objects(Q(post=post_id)).count()
 
 def get_post(post):
-    post = {
-        "id" : str(post.id),
-        "createdAt" : post.createdAt.strftime('%s'),
-        "content" : post.content,
-        "author" : get_user(post.author),
-        "tags" : get_tags(post.tags),
-        "files" : get_files(post.files),
-        "comments" : get_comments_count_from_post_id(str(post.id)),
-        "likes" : len(post.likes),
-    }
-    return post
+    try:
+        return {
+            "id" : str(post.id),
+            "createdAt" : post.createdAt.strftime('%s'),
+            "content" : post.content,
+            "author" : get_user(post.author),
+            "tags" : get_tags(post.tags),
+            "files" : get_files(post.files),
+            "comments" : get_comments_count_from_post_id(str(post.id)),
+            "likes" : len(post.likes),
+        }
+    except:
+        return {
+            "error" : "Invalid tag"
+        }
 
 def get_posts(posts):
     psts = []
