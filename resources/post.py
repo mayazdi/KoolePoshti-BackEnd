@@ -42,7 +42,7 @@ def get_tag(tag):
         }
     except:
         return {
-            "error" : "Invalid tag"
+            "error" : "Invalid tag id"
         }
 
 def get_tags(tags):
@@ -60,7 +60,7 @@ def get_file(f):
         }
     except:
         return {
-            "error" : "Invalid tag"
+            "error" : "Invalid file id"
         }
 
 def get_files(files):
@@ -93,7 +93,7 @@ def get_post(post):
         }
     except:
         return {
-            "error" : "Invalid tag"
+            "error" : "Invalid post id"
         }
 
 def get_posts(posts):
