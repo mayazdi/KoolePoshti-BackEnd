@@ -97,7 +97,7 @@ class PostApi(Resource):
     decorators = [jwt_required()]
 
     def get(self, id):
-        post = Post.objects(Q(id=id) | Q(active=True))
+        post = Post.objects(Q(id=id) & Q(active=True))
         # post = Post.objects.get(id=id).to_json()
         if post:
             post = post[0]
