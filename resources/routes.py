@@ -10,7 +10,8 @@ from .user import UserApi
 def initialize_routes(api, routing_prefix):
     api.add_resource(SigninApi, routing_prefix + '/auth/signin')
     api.add_resource(SignupApi, routing_prefix + '/auth/signup')
-    api.add_resource(ForgotApi, routing_prefix + '/auth/forgotPassword')
+    # api.add_resource(ForgotApi, routing_prefix + '/auth/forgotPassword')
+    api.add_resource(ForgotApi, routing_prefix + '/auth/forgetPassword')
     api.add_resource(ActivateApi, routing_prefix + '/auth/activate')
     api.add_resource(ResetPasswordApi, routing_prefix + '/auth/resetPassword')
     api.add_resource(UserApi, routing_prefix + '/user')
