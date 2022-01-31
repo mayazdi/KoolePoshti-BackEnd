@@ -92,7 +92,7 @@ class ForgotApi(Resource):
     def post(self):
         body = request.get_json()
         if 'beheshtiEmail' in body:
-            user = User.objects(Q(beheshtiEmail=body['beheshtiEmail'].lower())))
+            user = User.objects(Q(beheshtiEmail=body['beheshtiEmail'].lower()))
             if user:
                 user = user[0]
                 user.update(forgotten_password=True, otp=generate_otp())
