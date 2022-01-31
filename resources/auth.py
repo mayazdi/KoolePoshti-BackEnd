@@ -14,7 +14,7 @@ class SigninApi(Resource):
     def post(self):
         body = request.get_json()
         try:
-            _beheshti_email = body['beheshtiEmail']
+            _beheshti_email = body['beheshtiEmail'].lower()
             _password = hashlib.md5("{}{}".format(body['password'], config_map['password_salt']).encode()).hexdigest()
         except Exception:
             return {'error': 'wrong format'}, 400
@@ -33,7 +33,7 @@ class SigninApi(Resource):
 
 def user_already_exists(body):
     try:
-        user = User.objects.get(beheshtiEmail=body['beheshtiEmail'])
+        user = User.objects.get(beheshtiEmail=body['beheshtiEmail'].lower())
         if user:
             return True            
     except:
@@ -92,7 +92,7 @@ class ForgotApi(Resource):
     def post(self):
         body = request.get_json()
         if 'beheshtiEmail' in body:
-            user = User.objects(Q(beheshtiEmail=body['beheshtiEmail']))
+            user = User.objects(Q(beheshtiEmail=body['beheshtiEmail'].lower())))
             if user:
                 user = user[0]
                 user.update(forgotten_password=True, otp=generate_otp())
@@ -107,7 +107,7 @@ class ActivateApi(Resource):
     def post(self):
         body = request.get_json()
         try:
-            _beheshti_email = body['beheshtiEmail']
+            _beheshti_email = body['beheshtiEmail'].lower()
             otp = body['otp']
         except Exception:
             return {'error': 'wrong format'}, 400
@@ -138,14 +138,14 @@ class ResetPasswordApi(Resource):
         # TODO: check for JWT. or if user is loggedin
         body = request.get_json()
         if 'beheshtiEmail' in body and 'password' and 'otp' in body:
-            user = User.objects(Q(beheshtiEmail=body['beheshtiEmail']))
+            user = User.objects(Q(beheshtiEmail=body['beheshtiEmail'].lower()))
             if user:
                 # TODO: Check if user has forgotten password
                 user = user[0]
                 if user.otp == body['otp']:
                     user.update(password=hashlib.md5("{}{}".format(body['password'], config_map['password_salt']).encode()).hexdigest())
                     user.update(forgotten_password=False)
-                    access_token = create_access_token(identity=body['beheshtiEmail'])
+                    access_token = create_access_token(identity=body['beheshtiEmail'].lower())
                     return jsonify(accessToken=access_token)
                 else:
                     print(user.otp)
