@@ -10,6 +10,8 @@ config_map = {
     'jwt_secret_key': 'super_secret_key_for_jwt',
     'password_salt': 'KoOlEpOsHtI_SaLt',
     'tags_location' : "./static/tags/",
-    'github_accesstoken': "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",
+    'github_accesstoken': "ghp_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
     'semester_since_year' : 1396,
 }
+
+# This repo has been private & the Accesstoken is now revoked... So the AT above (also in the history) is not gonna work
