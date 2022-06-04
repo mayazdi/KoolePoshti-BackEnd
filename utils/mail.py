@@ -3,9 +3,10 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 def send_otp_email(receiver_mail, receiver_name, otp_numbers):
-    access_token = 'xwraarzgnszffddq'
+    access_token = 'AAAAAAAAAAAAAAAA'
+    # This repo has been private & the Accesstoken is now revoked... So the AT above (also in the history) is not gonna work
     sender_mail = "yazdi.mohammad99@gmail.com"
-    # receiver_mail = "amin.yazdi@atrovan.com"
+    # receiver_mail = "amin.yazdi@email.com"
 
     smtp_host = 'smtp.gmail.com'
     smtp_port = 465
