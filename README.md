@@ -14,3 +14,5 @@ Developing Back-End (Current repo) is done using Python and Flask framework; and
 * By: MohammadAmin Yazdi
 
 > Checkout `thesis` directory for further documents
+
+Also Front-End side can be accessed [here](https://github.com/madsams/bachelor-front)
